@@ -38,14 +38,14 @@ const Header = () => {
 			</div>
 			<div className="navbar-right">
 				<ul>
-					<li className="navbar-email" onClick={()=>toggleMenu()}>
+					<li className="navbar-email pointer" onClick={()=>toggleMenu()}>
 						platzi@example.com
 					</li>
 					<li
 						className="navbar-shopping-cart"
 						onClick={() => toggleOrder()}
 					>
-						<img src={shoppingCart} alt="shopping cart" />
+						<img className="pointer" src={shoppingCart} alt="shopping cart" />
 						{state.cart.length > 0 ? <div>{state.cart.length}</div> : null}
 					</li>
 				</ul>

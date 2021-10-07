@@ -2,3 +2,6 @@ body {
 	margin: 0;
 	font-family: 'Quicksand', sans-serif;
 }
+a[href], input[type='submit'], input[type='image'], label[for], select, button, .pointer {
+       cursor: pointer;
+}
