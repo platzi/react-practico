@@ -34,6 +34,12 @@
 	margin-bottom: 0;
 	color: var(--very-light-pink);
 }
+.add-to-cart-btn {
+	box-shadow: var(--very-light-pink) 0px 0px 2px;
+}
+.disabled {
+	cursor: not-allowed;
+}
 @media (max-width: 640px) {
 	.cards-container {
 		grid-template-columns: repeat(auto-fill, 140px);
