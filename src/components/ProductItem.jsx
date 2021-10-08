@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import '@styles/ProductItem.scss';
 import AppContext from '../context/AppContext';
 import addToCartImage from '@icons/bt_add_to_cart.svg';
+import addedToCartImage from '@icons/bt_added_to_cart.svg';
 
 const ProductItem = ({ product }) => {
-	const { addToCart } = useContext(AppContext);
+	const { state, addToCart } = useContext(AppContext);
 
 	const handleClick = item => {
-		addToCart(item);
+		console.log('in cart: ', state.cart.includes(item));
+		addToCart(item)
 	}
 
 	return (
@@ -18,8 +20,9 @@ const ProductItem = ({ product }) => {
 					<p>${product.price}</p>
 					<p>{product.title}</p>
 				</div>
-				<figure onClick={() => handleClick(product)} >
-					<img src={addToCartImage} alt="" />
+				<figure className="more-clickable-area" onClick={() => handleClick(product)} >
+					{  state.cart.includes(product) ? <img className="disabled add-to-cart-btn" src={addedToCartImage} alt="added to cart" />  : <img className="add-to-cart-btn pointer" src={addToCartImage} alt="add to cart" /> }
+					
 				</figure>
 			</div>
 		</div>
