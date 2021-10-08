@@ -5,3 +5,7 @@ body {
 a[href], input[type='submit'], input[type='image'], label[for], select, button, .pointer {
        cursor: pointer;
 }
+.more-clickable-area{
+	padding: 1em;     
+	margin: -1em;
+}

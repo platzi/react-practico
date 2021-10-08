@@ -16,7 +16,7 @@ const MyOrder = () => {
 	return (
 		<aside className="MyOrder">
 			<div className="title-container">
-				<img className="pointer" src={arrow} alt="arrow" onClick={()=> toggleOrder()} />
+				<img className="more-clickable-area pointer" src={arrow} alt="arrow" onClick={()=> toggleOrder()} />
 				<p className="title">My order</p>
 			</div>
 			<div className="my-order-content">
