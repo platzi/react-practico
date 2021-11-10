@@ -14,26 +14,24 @@ const MyOrder = () => {
 	}
 
 	return (
-		<aside className="MyOrder">
-			<div className="title-container">
-				<img src={arrow} alt="arrow" />
-				<p className="title">My order</p>
-			</div>
-			<div className="my-order-content">
-				{state.cart.map(product => (
-					<OrderItem product={product} key={`orderItem-${product.id}`} />
-				))}
-				<div className="order">
-					<p>
-						<span>Total</span>
-					</p>
-					<p>${sumTotal()}</p>
-				</div>
-				<button className="primary-button">
-					Checkout
-				</button>
-			</div>
-		</aside>
+		 <aside className='MyOrder'>
+      			<div className='title-container'>
+        			<img src={arrow} alt='arrow' />
+        			<p className='title'>My order</p>
+      			</div>
+      			<div className='my-order-content'>
+        			<div className='order'>
+          				<p>
+            				<span>Total</span>
+          				</p>
+          				<p>${sumTotal()},00</p>
+        			</div>
+        			<button className='primary-button'>Checkout</button>
+        			{state.cart.map((item) => (
+          				<OrderItem product={item} key={`order-item-${Math.random() + item.id}`} />
+        			))}
+      			</div>
+    		</aside>
 	);
 }
 
