@@ -14,22 +14,24 @@ const MyOrder = () => {
 	}
 
 	return (
-		 <aside className='MyOrder'>
+		<aside className='MyOrder'>
       			<div className='title-container'>
-        			<img src={arrow} alt='arrow' />
+        			<img src={flechita} alt='arrow' />
         			<p className='title'>My order</p>
       			</div>
       			<div className='my-order-content'>
         			<div className='order'>
           				<p>
-            				<span>Total</span>
+            					<span>Total</span>
           				</p>
           				<p>${sumTotal()},00</p>
         			</div>
         			<button className='primary-button'>Checkout</button>
-        			{state.cart.map((item) => (
-          				<OrderItem product={item} key={`order-item-${Math.random() + item.id}`} />
-        			))}
+        			<div className='orders-container'>
+	          			{state.cart.map((item) => (
+	            				<OrderItem product={item} key={`order-item-${Math.random() + item.id}`} />
+        	  			))}
+        			</div>
       			</div>
     		</aside>
 	);
