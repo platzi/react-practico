@@ -5,7 +5,7 @@
 	display: grid;
 	place-items: center;
 }
-.contenedor-fomulario{
+.contenedor-formulario{
 	display: grid;
 	grid-template-rows: auto 1fr auto;
 	width: 300px;
@@ -16,23 +16,16 @@
 	justify-self: center;
 	display: none;
 }
-.title{
-	font-size: var(--lg);
-	margin-bottom: 12px;
-	text-align: center;
-}
-.subtitle{
-	color: var(--very-light-pink);
-	font-size: var(--md);
-	font-weight: 500;
-	margin-top: 0;
-	margin-bottom: 40px;
-	text-align: center;
-}
 .form{
 	display: flex;
 	flex-direction: column;
-
+}
+.form a{
+	color: rgb(1, 104, 1);
+	font-size: var(--sm);
+	text-align: center;
+	text-decoration: none;
+	margin-bottom: 50px;
 }
 .label{
 	font-size: var(--sm);
@@ -40,6 +33,7 @@
 	margin-bottom: 4px;
 }
 .input{
+	width: 300px;
 	background-color: var(--text-input-field);
 	border: none;
 	border-radius: 8px;
@@ -48,11 +42,25 @@
 	padding: 7px;
 	margin-bottom: 12px;
 }
+.input-email{
+	margin-bottom: 22px;
+}
 .primary-button{
 	background-color: cornflowerblue;
 	border-radius: 8px;
 	border: none;
 	color: var(--white);
+	width: 100%;
+	cursor: pointer;
+	font-size: var(--md);
+	font-weight: bold;
+	height: 50px;
+}
+.secondary-button{
+	background-color: #1ff802;
+	border-radius: 8px;
+	border: 1xp solid var(--hospital-green);
+	color: #0425fa;
 	width: 100%;
 	cursor: pointer;
 	font-size: var(--md);
@@ -67,4 +75,10 @@
 	.logo{
 		display: block;
 	}
+	.secondary-button {
+width: 320px;
+position: absolute;
+bottom: 0;
+margin-bottom: 24px;
+}
 }

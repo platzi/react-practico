@@ -1,6 +1,5 @@
 import React from 'react';
 import '@styles/RecoveryPassword.scss';
-
 import logo from '@Logos/logo_yard_sale.svg';
 import imgEmail from '@Iconos/email.svg';
 
