@@ -11,7 +11,7 @@ const ProductInfo = () => {
 				<p>Bicicleta</p>
 				<p>Bicicleta de carreras, 24 velocidades, frenos a disco, muy buena para entrenar.</p>
 				<button className="primary-button add-to-cart-button">
-				<img src={addToCart} alt="add to cart" />
+					<img src={addToCart} alt="add to cart" />
 					Agregar
 				</button>
 			</div>

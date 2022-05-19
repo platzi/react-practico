@@ -6,7 +6,7 @@ const NewPassword = () => {
 	return (
 		<div className="NewPassword">
 			<div className="NewPassword-container">
-			<img src={logo} alt="logo" className="logo" />
+				<img src={logo} alt="logo" className="logo" />
 				<h1 className="title">Crear nueva Contraseña</h1>
 				<p className="subtitle">Ingrese nueva contraseña para su cuenta</p>
 				<form action="/" className="form">
