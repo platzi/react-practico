@@ -1,17 +1,28 @@
-nav{
+@use './vars';
+
+nav {
     display: flex;
     justify-content: space-between;
     padding: 0 24px;
     border-bottom: 1px solid var(--very-light-pink);
+    align-items: center;
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    left: 0;
+    right: 0;
 }
-.menu{
+.menu {
+    height: 24px;
     display: none;
+    cursor: pointer;
 }
-.nav-logo{
+.nav-logo {
     width: 100px;
+    margin: auto 0;
 }
 .navbar-left ul,
-.navbar-right ul{
+.navbar-right ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -19,14 +30,14 @@ nav{
     align-items: center;
     height: 60px;
 }
-.navbar-left{
+.navbar-left {
     display: flex;
 }
-.navbar-left ul{
+.navbar-left ul {
     margin-left: 12px;
 }
 .navbar-left ul li a,
-.navbar-right ul li a{
+.navbar-right ul li a {
     text-decoration: none;
     color: var(--very-light-pink);
     border: 1px solid var(--white);
@@ -34,22 +45,24 @@ nav{
     border-radius: 8px;
 }
 .navbar-left ul li a:hover,
-.navbar-right ul li a:hover{
+.navbar-right ul li a:hover {
     border: 1px solid var(--hospital-green);
     color: var(--hospital-green);
 }
-.navbar-email{
+.navbar-email {
     color: var(--very-light-pink);
     font-size: var(--sm);
     margin-right: 12px;
+    cursor: pointer;
 }
-.navbar-shopping-cart{
+.navbar-shopping-cart {
     position: relative;
+    cursor: pointer;
 }
-.navbar-shopping-cart div{
+.navbar-shopping-cart div {
     width: 16px;
     height: 16px;
-    background-color: #07e6fd;
+    background-color: #32ca08;
     border-radius: 50%;
     font-size: var(--sm);
     font-weight: bold;
@@ -60,14 +73,14 @@ nav{
     justify-content: center;
     align-items: center;
 }
-@media (max-width: 640px){
-    .menu{
+@media (max-width: 640px) {
+    .menu {
         display: block;
     }
-    .navbar-left ul{
+    .navbar-left ul {
         display: none;
     }
-    .navbar-email{
+    .navbar-email {
         display: none;
     }
 }

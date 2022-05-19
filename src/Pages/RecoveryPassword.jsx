@@ -1,26 +1,22 @@
 import React from 'react';
 import '@styles/RecoveryPassword.scss';
 import logo from '@Logos/logo_yard_sale.svg';
-import imgEmail from '@Iconos/email.svg';
 
 const RecoveryPassword = () => {
-    return (
-        <div className="login">
-            <div className="contenedor-formulario">
-                <img src={logo} alt="logo" className="nav-logo" />
-                <h1 className="title">Se ha enviado el email!</h1>
-                <p className="subtitle">Por favor, revise su bandeja de entrada y siga las instrucciones para restablecer la contraseña</p>
-                <div className="email-image">
-                    <img src={imgEmail} alt="email" />
-                </div>
-                <button className="primary-button login-button">Acceso</button>
-                <p className="resend">
-                    <span>No recibiste el email?</span>
-                    <a href="/">Reenviar</a>
-                </p>
-            </div>
-        </div>
-    );
+	return (
+		<div className="RecoveryPassword">
+			<div className="RecoveryPassword-container">
+				<img src={logo} alt="logo" className="RecoveryPassword-logo" />
+				<h1 className="title">Recuperar contraseña</h1>
+				<p className="subtitle">Ingrese el email con el que creo su cuenta</p>
+				<form action="/" className="form">
+					<label htmlFor="email" className="label">Dirección de email</label>
+					<input type="text" id="email" placeholder= "ingresar email..." className="input input-email" />
+					<input type="submit" value="Confirm" className="primary-button login-button" />
+				</form>
+			</div>
+		</div>
+	);
 }
 
 export default RecoveryPassword;

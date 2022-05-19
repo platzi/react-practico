@@ -1,4 +1,4 @@
-@import 'vars';
+@use './vars';
 
 .SendEmail {
 	width: 100%;
@@ -6,13 +6,13 @@
 	display: grid;
 	place-items: center;
 }
-.form-container {
+.SendEmail-container {
 	display: grid;
 	grid-template-rows: auto 1fr auto;
 	width: 300px;
 	justify-items: center;
 }
-.logo {
+.SendEmail-logo {
 	width: 150px;
 	margin-bottom: 48px;
 	justify-self: center;
@@ -55,7 +55,7 @@
 	text-decoration: none;
 }
 .primary-button {
-	background-color: var(--hospital-green);
+	background-color: #019bd7a6;
 	border-radius: 8px;
 	border: none;
 	color: var(--white);
@@ -70,7 +70,7 @@
 	margin-bottom: 30px;
 }
 @media (max-width: 640px) {
-	.logo {
+	.SendEmail-logo {
 		display: block;
 	}
 }

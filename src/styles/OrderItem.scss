@@ -1,4 +1,4 @@
-@import 'vars';
+@use './vars';
 
 .OrderItem {
 	display: grid;
@@ -22,4 +22,7 @@
 .OrderItem p:nth-child(3) {
 	font-size: var(--md);
 	font-weight: bold;
+}
+.removeImage {
+	cursor: pointer;
 }

@@ -1,4 +1,4 @@
-@import 'vars';
+@use './vars';
 
 .MyAccount {
 	width: 100%;
@@ -36,12 +36,14 @@
 	margin-bottom: 4px;
 }
 .value {
-	color: var(--very-light-pink);
 	font-size: var(--md);
-	margin: 8px 0 32px 0;
+	margin: 8px 0 20px 0;
+	padding: 10px;
+	background-color: var(--text-input-field);
+	border-radius: 10px;
 }
 .secondary-button {
-	background-color: var(--white);
+	background-color: rgb(126, 176, 252);
 	border-radius: 8px;
 	border: 1px solid var(--hospital-green);
 	color: var(--hospital-green);

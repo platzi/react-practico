@@ -1,4 +1,4 @@
-@import 'vars';
+@use './vars';
 
 .ProductInfo {
 	margin: 24px 24px 0 24px;
@@ -22,7 +22,7 @@
 	margin-bottom: 36px;
 }
 .primary-button {
-	background-color: var(--hospital-green);
+	background-color: #019bd7a6;
 	border-radius: 8px;
 	border: none;
 	color: var(--white);
@@ -36,4 +36,5 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }

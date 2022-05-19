@@ -1,4 +1,4 @@
-@import 'vars';
+@use './vars';
 
 .CreateAccount {
 	width: 100%;
@@ -50,7 +50,7 @@
 	margin-bottom: 22px;
 }
 .primary-button {
-	background-color: var(--hospital-green);
+	background-color: #057effb0;
 	border-radius: 8px;
 	border: none;
 	color: var(--white);
