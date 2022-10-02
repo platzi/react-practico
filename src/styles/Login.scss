@@ -1,5 +1,8 @@
 @import 'vars';
-
+.button-submit{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 .Login {
 	width: 100%;
 	height: 100vh;
@@ -15,7 +18,7 @@
 	width: 150px;
 	margin-bottom: 48px;
 	justify-self: center;
-	display: none;
+	display: block;
 }
 .form {
 	display: flex;

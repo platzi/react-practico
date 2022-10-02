@@ -1,5 +1,8 @@
 @import 'vars';
-
+.password{
+	margin-top: -20px;
+	margin-bottom: 20px;
+}
 .CreateAccount {
 	width: 100%;
 	height: 100vh;
@@ -15,7 +18,7 @@
 	width: 150px;
 	margin-bottom: 48px;
 	justify-self: center;
-	display: none;
+	display: block;
 }
 .title {
 	font-size: var(--lg);
