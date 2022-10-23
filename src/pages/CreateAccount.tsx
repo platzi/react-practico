@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import "@styles/CreateAccount.scss";
 import logo from "@logos/green.png";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -97,7 +98,10 @@ const CreateAccount = () => {
     };
     await RegisterUserRedux(payload);
     if (register === 201) {
+      toast.success("Usuario creado correctamente");
       window.location.href = "/iniciar-sesión";
+    }else{
+      toast.error("Email o contraseña incorrectos.");
     }
   };
   return (
@@ -165,6 +169,7 @@ const CreateAccount = () => {
           </a>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

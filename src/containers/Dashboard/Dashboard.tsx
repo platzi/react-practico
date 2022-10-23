@@ -144,7 +144,7 @@ let theme = createTheme({
 
 const drawerWidth = 256;
 
-export default function Dashboard({ children }) {
+export default function Dashboard({ children }: any) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
 

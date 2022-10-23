@@ -25,9 +25,9 @@ export default function IconTabs() {
       id="iconTabsExample"
       indicatorColor="secondary"
     >
-      <Tab icon={<ContactPhoneIcon />} iconPosition="start" label="Datos" onClick={() => redirect('/dashboard/contratistas')}/>
-      <Tab icon={<EngineeringIcon />} iconPosition="start" label="Trabajadores" onClick={() => redirect('/dashboard/trabajadores')}/>
-      <Tab icon={<AssessmentIcon />} iconPosition="start" label="Resumen De Pagos" onClick={() => redirect('/dashboard/resumen-de-pagos')}/>
+      <Tab icon={<ContactPhoneIcon />} iconPosition="start" label="Datos" onClick={() => redirect('/dashboard/contratista/perfil')}/>
+      <Tab icon={<EngineeringIcon />} iconPosition="start" label="Trabajadores" onClick={() => redirect('/dashboard/contratista/trabajadores')}/>
+      <Tab icon={<AssessmentIcon />} iconPosition="start" label="Resumen De Pagos" onClick={() => redirect('/dashboard/contratista/resumen-de-pagos/')}/>
     </Tabs>
   );
 }

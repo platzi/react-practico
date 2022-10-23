@@ -1,6 +1,12 @@
 import { combineReducers, createStore } from 'redux';
 import { userAuthReducer } from './Auth';
-
+import { businessReducer } from './Business';
+import { contractorReducer } from './Contractor';
+import { aviatoReducer } from './Aviato';
+import { citiesReducer } from './Cities';
+import { jobsReducer } from './Jobs';
+import { residentReducer } from './Resident';
+import { constructionSiteReducer } from './ConstructionSite';
 const saveToLocalStorage = (state: RootReducerInterface): void => {
   try {
     const serializatedState = JSON.stringify(state);
@@ -22,7 +28,14 @@ const loadLocalStorageData = (): RootReducerInterface | undefined => {
 };
 
 const rootReducer = combineReducers({
+  aviato: aviatoReducer,
   user: userAuthReducer,
+  business: businessReducer,
+  contractor: contractorReducer,
+  citiess: citiesReducer,
+  jobss: jobsReducer,
+  residents: residentReducer,
+  ConstructionSites: constructionSiteReducer,
 });
 
 type RootReducerInterface = ReturnType<typeof rootReducer>;

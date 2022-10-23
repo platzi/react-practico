@@ -52,6 +52,8 @@ module.exports = (env) => {
 		  "@context": path.resolve(__dirname, "src/context/"),
 		  "@redux": path.resolve(__dirname, "src/redux/"),
 		  "@serevices": path.resolve(__dirname, "src/services/"),
+      "@core": path.resolve(__dirname, "src/core/"),
+      "@helpers": path.resolve(__dirname, "src/helpers/"),
 		},
 	  },
 	  output: {

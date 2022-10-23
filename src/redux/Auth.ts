@@ -92,7 +92,9 @@ const useAuth = (): IUseAuth => {
 
   const LoginRedux = async (user: IUser): Promise<void> => {
     try {
+      setLoading(false);
       const response = await loginService(user);
+      setLoading(true);
       const payload: ContentBaseInterface = {
         recovery: null,
         email: '',
@@ -135,7 +137,9 @@ const useAuth = (): IUseAuth => {
 
   const RegisterUserRedux = async (user: INewUser): Promise<void> => {
     try {
+      setLoading(false);
       const response = await RegisterUserService(user);
+      setLoading(true);
       const payload: ContentBaseInterface = {
         recovery: null,
         email: '',
@@ -158,8 +162,9 @@ const useAuth = (): IUseAuth => {
 
   const RecoveryPasswordRedux= async (user: IRecovery): Promise<void> => {
     try {
+      setLoading(false);
       const response =  await RecoveryPasswordUserService(user);
-      console.log("🚀 ~ file: Auth.ts ~ line 156 ~ RecoveryPasswordRedux ~ response", response)
+      setLoading(true);
       const payload: ContentBaseInterface = {
         recovery: response,
         email: user.email,

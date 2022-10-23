@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Routes, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Routes,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import Login from "@pages/Login";
 import PasswordRecovery from "@pages/PasswordRecovery";
 import SendEmail from "@pages/SendEmail";
@@ -12,7 +17,11 @@ import Home from "@pages/Home";
 import Layout from "@containers/Layout";
 import Dashboard from "@containers/Dashboard/Dashboard";
 import NotFound from "@pages/NotFound";
-import { useAuth } from '@redux/Auth';
+import BusinessProfile from "@pages/Business/BusinessProfile";
+import ConstructionSite from "@pages/Business/ConstructionSite";
+import Jobs from "@pages/Business/Jobs";
+import Resident from "@pages/Business/Resident";
+import { useAuth } from "@redux/Auth";
 
 const App = () => {
   const { user } = useAuth();
@@ -87,19 +96,12 @@ const App = () => {
             </Layout>
           </Switch>
         </Route>
-        <Route path={["/dashboard/:path?"]} exact>
+        <Route path={["/dashboard/contratista/:path?"]} exact>
           <Switch>
             <Dashboard>
               <Route
                 exact
-                path="/dashboard/home"
-                render={() => {
-                  return user ? <Home /> : <Redirect to="/iniciar-sesión" />;
-                }}
-              />
-              <Route
-                exact
-                path="/dashboard/contratistas"
+                path="/dashboard/contratista/perfil"
                 render={() => {
                   return user ? (
                     <Contractor />
@@ -110,7 +112,7 @@ const App = () => {
               />
               <Route
                 exact
-                path="/dashboard/trabajadores"
+                path="/dashboard/contratista/trabajadores"
                 render={() => {
                   return user ? (
                     <Employees />
@@ -121,7 +123,106 @@ const App = () => {
               />
               <Route
                 exact
-                path="/dashboard/resumen-de-pagos"
+                path="/dashboard/contratista/resumen-de-pagos"
+                render={() => {
+                  return user ? <ListPay /> : <Redirect to="/iniciar-sesión" />;
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard"
+                render={() => {
+                  return user ? (
+                    <Redirect to="/dashboard/home" />
+                  ) : (
+                    <Redirect to="/iniciar-sesión" />
+                  );
+                }}
+              />
+            </Dashboard>
+          </Switch>
+        </Route>
+        <Route path={["/dashboard/empresa/:path?"]} exact>
+          <Switch>
+            <Dashboard>
+              <Route
+                exact
+                path="/dashboard/empresa/perfil"
+                render={() => {
+                  return user ? (
+                    <BusinessProfile />
+                  ) : (
+                    <Redirect to="/iniciar-sesión" />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard/empresa/construction-site"
+                render={() => {
+                  return user ? (
+                    <ConstructionSite />
+                  ) : (
+                    <Redirect to="/iniciar-sesión" />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard/empresa/puestos"
+                render={() => {
+                  return user ? <Jobs /> : <Redirect to="/iniciar-sesión" />;
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard/empresa/residentes"
+                render={() => {
+                  return user ? <Resident /> : <Redirect to="/iniciar-sesión" />;
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard"
+                render={() => {
+                  return user ? (
+                    <Redirect to="/dashboard/home" />
+                  ) : (
+                    <Redirect to="/iniciar-sesión" />
+                  );
+                }}
+              />
+            </Dashboard>
+          </Switch>
+        </Route>
+        <Route path={["/dashboard/home"]} exact>
+          <Switch>
+            <Dashboard>
+              <Route
+                exact
+                path="/dashboard/home"
+                render={() => {
+                  return user ? (
+                    <Contractor />
+                  ) : (
+                    <Redirect to="/iniciar-sesión" />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard/business/trabajadores"
+                render={() => {
+                  return user ? (
+                    <Employees />
+                  ) : (
+                    <Redirect to="/iniciar-sesión" />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/dashboard/business/resumen-de-pagos"
                 render={() => {
                   return user ? <ListPay /> : <Redirect to="/iniciar-sesión" />;
                 }}

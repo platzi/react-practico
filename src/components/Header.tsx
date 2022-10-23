@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -11,21 +10,22 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Divider from "@material-ui/core/Divider";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import TabPanel from '@components/TabPanel';
-import { useDispatch, useSelector } from "react-redux";
+import TabPanelBusiness from '@components/TabPanelBusiness';
 import { useAuth } from '@redux/Auth';
+import { useAviato } from '@redux/Aviato';
 import "@styles/Header.scss";
 
-function Header(props) {
+function Header(props: any) {
   const { LogoutRedux, user } = useAuth();
   const { onDrawerToggle } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = (event) => {
+  const { contractor, business } = useAviato();
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -38,6 +38,7 @@ function Header(props) {
       window.location.href = "/";
     }    
   };
+  
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -80,7 +81,7 @@ function Header(props) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>
-                  <AccountCircleIcon></AccountCircleIcon>Profile
+                  <AccountCircleIcon></AccountCircleIcon>Perfil
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleLogout}>
@@ -102,7 +103,7 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Tomas Naranjo
+                {contractor?.name || business?.name} 
               </Typography>
             </Grid>
           </Grid>
@@ -113,8 +114,8 @@ function Header(props) {
         position="static"
         elevation={0}
         sx={{ zIndex: 0 }}
-      >
-        <TabPanel></TabPanel>
+      > 
+        {contractor?.id ? <TabPanel /> : <TabPanelBusiness />}
       </AppBar>
     </React.Fragment>
   );

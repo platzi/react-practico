@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import "@styles/Login.scss";
 import logo from "@logos/green.png";
@@ -18,11 +19,10 @@ const Login = () => {
     };
     await LoginRedux(payload);
     if (user) {
+      window.location.reload();
       window.location.href = "/dashboard/home";
     }else{
-      console.log(user);
       toast.error("Email o contraseña incorrectos.");
-      //window.location.href = "/";
     }
   }; 
   const handleRedirectSigup = () => {
