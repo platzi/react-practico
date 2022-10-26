@@ -4,6 +4,7 @@
   "description": "Administrador de nominas",
   "private": true,
   "scripts": {
+    "install": " npm start --legacy-peer-deps",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open --port 3000 --env name=Aviato --env version=1.0.0 --env environment=development",
     "build": "webpack --mode production --env name=Aviato --env version=1.0.0 --env environment=development"
