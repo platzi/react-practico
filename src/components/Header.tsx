@@ -34,7 +34,7 @@ function Header(props: any) {
   const handleLogout = async () => {
     await LogoutRedux();
     handleClose();
-    if (user === null) {
+    if (user === undefined) {
       window.location.href = "/";
     }    
   };

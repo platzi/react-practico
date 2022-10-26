@@ -10,6 +10,10 @@ module.exports = (env) => {
   return {
     entry: "./src/index.tsx",
     mode: "development",
+    performance: {
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000,
+    },
     module: {
       rules: [
         {
@@ -37,30 +41,30 @@ module.exports = (env) => {
         },
       ],
     },
-	resolve: {
-		extensions: [".tsx", ".ts", ".js"],
-		alias: {
-		  "@components": path.resolve(__dirname, "src/components/"),
-		  "@containers": path.resolve(__dirname, "src/containers/"),
-		  "@pages": path.resolve(__dirname, "src/pages/"),
-		  "@routes": path.resolve(__dirname, "src/routes/"),
-		  "@styles": path.resolve(__dirname, "src/styles/"),
-		  "@icons": path.resolve(__dirname, "src/assets/icons/"),
-		  "@logos": path.resolve(__dirname, "src/assets/logos/"),
-		  "@hooks": path.resolve(__dirname, "src/hooks/"),
-		  "@services": path.resolve(__dirname, "src/services/"),
-		  "@context": path.resolve(__dirname, "src/context/"),
-		  "@redux": path.resolve(__dirname, "src/redux/"),
-		  "@serevices": path.resolve(__dirname, "src/services/"),
-      "@core": path.resolve(__dirname, "src/core/"),
-      "@helpers": path.resolve(__dirname, "src/helpers/"),
-		},
-	  },
-	  output: {
-		path: path.resolve(__dirname, "dist"),
-		filename: "bundle.js",
-		publicPath: "/",
-	  },
+    resolve: {
+      extensions: [".tsx", ".ts", ".js"],
+      alias: {
+        "@components": path.resolve(__dirname, "src/components/"),
+        "@containers": path.resolve(__dirname, "src/containers/"),
+        "@pages": path.resolve(__dirname, "src/pages/"),
+        "@routes": path.resolve(__dirname, "src/routes/"),
+        "@styles": path.resolve(__dirname, "src/styles/"),
+        "@icons": path.resolve(__dirname, "src/assets/icons/"),
+        "@logos": path.resolve(__dirname, "src/assets/logos/"),
+        "@hooks": path.resolve(__dirname, "src/hooks/"),
+        "@services": path.resolve(__dirname, "src/services/"),
+        "@context": path.resolve(__dirname, "src/context/"),
+        "@redux": path.resolve(__dirname, "src/redux/"),
+        "@serevices": path.resolve(__dirname, "src/services/"),
+        "@core": path.resolve(__dirname, "src/core/"),
+        "@helpers": path.resolve(__dirname, "src/helpers/"),
+      },
+    },
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "bundle.js",
+      publicPath: "/",
+    },
     plugins: [
       new Dotenv(),
       new HtmlWebpackPlugin({

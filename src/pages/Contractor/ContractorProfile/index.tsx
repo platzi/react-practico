@@ -45,7 +45,7 @@ const TabName = styled('span')(({ theme }) => ({
   }
 }))
 
-const BusinessProfile = () => {
+const ContractorProfile = () => {
   // ** State
   const classes = useStyles();
   const [value, setValue] = useState<string>('Perfil')
@@ -69,7 +69,7 @@ const BusinessProfile = () => {
             label={
               <Box sx={{ display: 'flex', alignItems: 'center'}}>
                 <AccountOutline />
-                <TabName>Perfil de la empresa</TabName>
+                <TabName>Perfil del contratista</TabName>
               </Box>
             }
           />
@@ -83,4 +83,4 @@ const BusinessProfile = () => {
   )
 }
 
-export default BusinessProfile
+export default ContractorProfile

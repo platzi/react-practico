@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import clsx from 'clsx';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@mui/material/Drawer";
@@ -92,7 +93,8 @@ export default function Navigator(props: any) {
     await ListBusinessRedux(user.id);
     if (contractor[0]?.id !== undefined || null) {
       setSelectedIndex(contractor[0].id);
-      document.getElementsByClassName("item-contractor")[0].click();
+      const list = document.getElementsByClassName("item-contractor")[0] as HTMLElement;
+      list.click();
     }
   };
 
@@ -101,7 +103,7 @@ export default function Navigator(props: any) {
   }, []);
 
   return (
-    <Drawer variant="permanent" {...other} className="navigation">
+    <Drawer variant={props.variant} {...other} className={clsx(classes.root,"navigation")}>
       <List>
         <img
           src={logo}

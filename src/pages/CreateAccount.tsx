@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import "@styles/CreateAccount.scss";
 import logo from "@logos/green.png";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -87,21 +87,20 @@ const CreateAccount = () => {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const formData = new FormData(form.current);
-    const payload = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      role: "admin",
-    };
-    await RegisterUserRedux(payload);
-    if (register === 201) {
-      toast.success("Usuario creado correctamente");
-      window.location.href = "/iniciar-sesión";
-    }else{
-      toast.error("Email o contraseña incorrectos.");
+    if (form !== null || form !== undefined) {
+      const formData = new FormData(form?.current);
+      const payload = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        password: formData.get("password"),
+        role: "admin",
+      };
+      await RegisterUserRedux(payload).then(() => {
+        toast.success("Usuario creado correctamente");
+        setTimeout((location.href = "/iniciar-sesión"), 1000);
+      });
     }
   };
   return (

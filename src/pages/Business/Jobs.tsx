@@ -62,6 +62,7 @@ export default function Jobs() {
             backgroundColor: "rgb(32, 201, 151)",
             color: "#FFF",
           },
+          actionsColumnIndex: -1,
         }}
         editable={{
           onRowAdd: (newData) =>

@@ -11,3 +11,9 @@ export const listContractorService = (id_user) => {
     return res.data;
   });
 };
+
+export const updateContractorService = (id, payload) => {
+  return axios.patch(`${process.env.API_URL}/contractor/update/${id}`, payload).then(res => {
+    return res.data;
+  });
+}

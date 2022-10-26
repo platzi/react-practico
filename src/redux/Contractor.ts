@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionEvent } from "../common/utils";
 import { RootReducerInterface } from "./store";
-import { listContractorService, createContractorService } from "../services/contractorServices";
+import { listContractorService, createContractorService, updateContractorService } from "../services/contractorServices";
 
 
 
@@ -36,6 +36,7 @@ export interface IContractorItem {
 interface IContractor extends ContentBaseInterface {
   ListContractorRedux: (id_user: number) => void;
   CreateContractorRedux: (contractor: any) => void;
+  UpdateContractorRedux: (id: number, changes: IContractorItem) => void;
 }
 
 interface ReducerActionsInterface {
@@ -99,6 +100,28 @@ const useContractor = (): IContractor => {
     }
   };
 
+  const UpdateContractorRedux = async ( id: number, changes: IContractorItem): Promise<void> => {
+    try {
+      setLoading(true);
+      const response = await updateContractorService(id, changes);
+      setLoading(false);
+      const payload: ContentBaseInterface = {
+        newContractor,
+        contractor: response,
+        loading,
+      };
+
+      dispatch(
+        actionEvent<ContentActionsContants, ContentBaseInterface>({
+          type: ContentActionsContants.SUCCES_LIST_CONTRACTOR,
+          payload,
+        })
+      );
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
  
 
   return {
@@ -107,6 +130,7 @@ const useContractor = (): IContractor => {
     loading,
     ListContractorRedux,
     CreateContractorRedux,
+    UpdateContractorRedux,
   };
 };
 

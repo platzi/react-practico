@@ -7,6 +7,9 @@ import { citiesReducer } from './Cities';
 import { jobsReducer } from './Jobs';
 import { residentReducer } from './Resident';
 import { constructionSiteReducer } from './ConstructionSite';
+import { employeReducer } from './Employe';
+import { resumePayReducer } from './ResumePay';
+import { resumePayDataReducer } from './ResumePayData';
 const saveToLocalStorage = (state: RootReducerInterface): void => {
   try {
     const serializatedState = JSON.stringify(state);
@@ -35,7 +38,10 @@ const rootReducer = combineReducers({
   citiess: citiesReducer,
   jobss: jobsReducer,
   residents: residentReducer,
-  ConstructionSites: constructionSiteReducer,
+  constructionSites: constructionSiteReducer,
+  employes: employeReducer,
+  resumePays: resumePayReducer,
+  resumePayDatas: resumePayDataReducer,
 });
 
 type RootReducerInterface = ReturnType<typeof rootReducer>;

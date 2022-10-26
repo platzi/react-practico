@@ -26,25 +26,16 @@ enum ContentActionsContants {
  * Interfaces
  */
 interface ContentBaseInterface {
-  recovery: number | null;
+  recovery: number;
   email: string;
-  register: number | null;
+  register: number;
   token: string;
-  user: Profile | null;
+  user: Profile | undefined;
   loading: boolean;
 }
 
 interface IRecovery {
   email: string;
-}
-
-interface IRegister {
-  id: number;
-  createdAt: string;
-  email: string;
-  name: string;
-  recoveryToken: string;
-  role: string;
 }
 
 interface Profile {
@@ -83,6 +74,7 @@ interface ReducerActionsInterface {
 /**
  * Hooks
  */
+const defaultUser: Profile = {id: 0, createdAt: '', email: '', name: '', recoveryToken: '', role: ''};
 const useAuth = (): IUseAuth => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true);
@@ -96,9 +88,9 @@ const useAuth = (): IUseAuth => {
       const response = await loginService(user);
       setLoading(true);
       const payload: ContentBaseInterface = {
-        recovery: null,
+        recovery,
         email: '',
-        register: null,
+        register,
         token: response.token,
         user: response.user,
         loading,
@@ -110,18 +102,18 @@ const useAuth = (): IUseAuth => {
         })
       );
     } catch (error) {
-      setLoading(false);
+        setLoading(true);
     }
   };
 
   const LogoutRedux = async (): Promise<void> => {
     try {
       const payload: ContentBaseInterface = {
-        recovery: null,
+        recovery,
         email: '' ,
-        register: null,
+        register,
         token: "",
-        user: null,
+        user: undefined,
         loading,
       };
       dispatch(
@@ -141,11 +133,11 @@ const useAuth = (): IUseAuth => {
       const response = await RegisterUserService(user);
       setLoading(true);
       const payload: ContentBaseInterface = {
-        recovery: null,
-        email: '',
+        recovery,
+        email,
         register: response,
-        token: "",
-        user: null,
+        token,
+        user: undefined,
         loading,
       };
        
@@ -168,9 +160,9 @@ const useAuth = (): IUseAuth => {
       const payload: ContentBaseInterface = {
         recovery: response,
         email: user.email,
-        register: null,
-        token: "",
-        user: null,
+        register,
+        token,
+        user: undefined,
         loading,
       };
       dispatch(
@@ -202,10 +194,10 @@ const useAuth = (): IUseAuth => {
  * Reducers
  */
 const initialState: ContentBaseInterface = {
-  recovery: null,
+  recovery: 0,
   email: '',
-  register: null,
-  user: null,
+  register: 0,
+  user: undefined,
   token: "",
   loading: true,
 };

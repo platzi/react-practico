@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BrowserRouter as Routes,
   Route,
@@ -10,18 +9,19 @@ import PasswordRecovery from "@pages/PasswordRecovery";
 import SendEmail from "@pages/SendEmail";
 import NewPassword from "@pages/NewPassword";
 import CreateAccount from "@pages/CreateAccount";
-import Employees from "@pages/Employees";
-import Contractor from "@pages/Contractor";
-import ListPay from "@pages/ListPay";
-import Home from "@pages/Home";
+import Employees from "@pages/Contractor/Employes";
 import Layout from "@containers/Layout";
 import Dashboard from "@containers/Dashboard/Dashboard";
+import Home from "@pages/Home";
 import NotFound from "@pages/NotFound";
 import BusinessProfile from "@pages/Business/BusinessProfile";
 import ConstructionSite from "@pages/Business/ConstructionSite";
 import Jobs from "@pages/Business/Jobs";
 import Resident from "@pages/Business/Resident";
+import ContractorProfile from "@pages/Contractor/ContractorProfile";
+import ResumePay from "@pages/Contractor/ResumePay";
 import { useAuth } from "@redux/Auth";
+
 
 const App = () => {
   const { user } = useAuth();
@@ -104,7 +104,7 @@ const App = () => {
                 path="/dashboard/contratista/perfil"
                 render={() => {
                   return user ? (
-                    <Contractor />
+                    <ContractorProfile />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
                   );
@@ -125,7 +125,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/resumen-de-pagos"
                 render={() => {
-                  return user ? <ListPay /> : <Redirect to="/iniciar-sesión" />;
+                  return user ? <ResumePay /> : <Redirect to="/iniciar-sesión" />;
                 }}
               />
               <Route
@@ -203,28 +203,10 @@ const App = () => {
                 path="/dashboard/home"
                 render={() => {
                   return user ? (
-                    <Contractor />
+                    <Home />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
                   );
-                }}
-              />
-              <Route
-                exact
-                path="/dashboard/business/trabajadores"
-                render={() => {
-                  return user ? (
-                    <Employees />
-                  ) : (
-                    <Redirect to="/iniciar-sesión" />
-                  );
-                }}
-              />
-              <Route
-                exact
-                path="/dashboard/business/resumen-de-pagos"
-                render={() => {
-                  return user ? <ListPay /> : <Redirect to="/iniciar-sesión" />;
                 }}
               />
               <Route

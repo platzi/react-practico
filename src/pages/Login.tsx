@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import "@styles/Login.scss";
 import logo from "@logos/green.png";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useAuth } from '@redux/Auth';
+import { useAuth } from "@redux/Auth";
 
 const Login = () => {
   const form = useRef(null);
@@ -17,14 +17,13 @@ const Login = () => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    await LoginRedux(payload);
-    if (user) {
-      window.location.reload();
-      window.location.href = "/dashboard/home";
-    }else{
+    await LoginRedux(payload).then(() => {
+      setTimeout(window.location.href = "/dashboard/contratista/perfil", 1000);
+    });
+    if (!user) {
       toast.error("Email o contraseña incorrectos.");
     }
-  }; 
+  };
   const handleRedirectSigup = () => {
     window.location.href = "/crear-cuenta";
   };
@@ -61,7 +60,9 @@ const Login = () => {
           >
             Iniciar sesión
           </LoadingButton>
-          <a className="button-submit" href="/recuperar-contrasena">Recuperar Contrasena</a>
+          <a className="button-submit" href="/recuperar-contrasena">
+            Recuperar Contrasena
+          </a>
         </form>
         <button
           onClick={handleRedirectSigup}

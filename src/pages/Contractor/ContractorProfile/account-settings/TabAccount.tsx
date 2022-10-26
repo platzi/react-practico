@@ -8,6 +8,7 @@ import {
 } from "react";
 import { ToastContainer, toast } from "react-toastify";
 // ** MUI Imports
+import Form from "react-bootstrap/Form";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -17,12 +18,9 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Button, { ButtonProps } from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
-import AddEstado from "@components/modal/AddEstado";
 import { useAviato } from "@redux/Aviato";
-import { useBusiness } from "@redux/Business";
-import { useCities, ICitiesItem } from "@redux/Cities";
+import { useContractor, IContractorItem } from "@redux/Contractor";
+import { useBusiness } from '@redux/Business';
 
 // ** Icons Imports
 
@@ -55,12 +53,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const TabAccount = () => {
   // ** State
   const classes = useStyles();
-  const { business } = useAviato();
-  const { deleteCities, cities, ListCitiesRedux, DeleteCitiesRedux } =
-    useCities();
-  const { updateBusiness, UpdateBusinessRedux } = useBusiness();
-  const [businessProfile, setBusinessProfile] = useState<ICitiesItem>();
-  const [open, setOpen] = useState(false);
+  const { contractor } = useAviato();
+  const { UpdateContractorRedux } = useContractor();
+  const { business } = useBusiness();
+  const [contractorProfile, setContractorProfile] = useState<IContractorItem>();
   const [imgSrc, setImgSrc] = useState<string>(
     "https://image.shutterstock.com/image-photo/external-wall-insulation-energy-efficiency-600w-2126965325.jpg"
   );
@@ -73,49 +69,31 @@ const TabAccount = () => {
       reader.readAsDataURL(files[0]);
     }
   };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   // ** Function to handle set business state on change of input value
   const handleInputChange = (e: SyntheticEvent) => {
     const { name, value } = e.target as HTMLInputElement;
-    setBusinessProfile({ ...businessProfile, [name]: value });
+    setContractorProfile({ ...contractorProfile, [name]: value });
   };
 
-  // Function to handle form submit delete cities
-  const handleDeleteCities = async (id: number) => {
-    await DeleteCitiesRedux(id);
-    if (deleteCities) {
-      ListCitiesRedux(business.id);
-      toast.success("Estado Eliminado Correctamente.");
-    }
-  };
-
-  //Create fuction to handle form submit update cities
+  //Create fuction to handle form submit update
   const handleSubmitUpdate = async (e: SyntheticEvent) => {
     e.preventDefault();
     const payload = {
-      name: businessProfile?.name,
-      reg_patronal: businessProfile?.reg_patronal,
-      rfc: businessProfile?.rfc,
+      name: contractorProfile?.name,
+      reg_patronal: contractorProfile?.reg_patronal,
+      rfc: contractorProfile?.rfc,
     };
-    await UpdateBusinessRedux(businessProfile?.id, payload).then(async() => {
-      await ListCitiesRedux(business.id);
-      toast.success("Empresa Actualizada Correctamente.");
+    await UpdateContractorRedux(contractorProfile?.id, payload).then(() => {
+      toast.success("Contratista Actualizado Correctamente.");
     });
   };
 
   useEffect(() => {
-    if (business) {
-      ListCitiesRedux(business.id);
-      setBusinessProfile(business);
+    if (contractor) {
+      setContractorProfile(contractor);
     }
-  }, [business]);
+  }, [contractor]);
 
   return (
     <>
@@ -153,25 +131,30 @@ const TabAccount = () => {
                 color="secondary"
                 fullWidth
                 label="Name"
-                placeholder={businessProfile?.name}
-                defaultValue={businessProfile?.name}
-                value={businessProfile?.name || ""}
+                placeholder={contractorProfile?.name}
+                defaultValue={contractorProfile?.name}
+                value={contractorProfile?.name || ""}
                 name="name"
                 onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                variant="standard"
-                color="secondary"
-                fullWidth
-                label="Regimen Patronal"
-                placeholder={businessProfile?.reg_patronal}
-                defaultValue={businessProfile?.reg_patronal}
-                value={businessProfile?.reg_patronal || ""}
-                name="reg_patronal"
-                onChange={handleInputChange}
-              />
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput2"
+              >
+                <Form.Select aria-label="Selecciona" onChange={(e) =>{setContractorProfile({...contractorProfile, id_business: e.target.value}) }} value={contractorProfile?.id_business}>
+                  {business.map((item: any) => (
+                    <option
+                      key={item.id}
+                      value={item.id}
+                      defaultValue={item.id}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -179,57 +162,12 @@ const TabAccount = () => {
                 color="secondary"
                 fullWidth
                 label="RFC"
-                placeholder={businessProfile?.rfc}
-                defaultValue={businessProfile?.rfc}
-                value={businessProfile?.rfc || ""}
+                placeholder={contractorProfile?.rfc}
+                defaultValue={contractorProfile?.rfc}
+                value={contractorProfile?.rfc || ""}
                 name="rfc"
                 onChange={handleInputChange}
               />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Typography
-                variant="subtitle1"
-                component="h2"
-                style={{ marginBottom: "5px", marginTop: "-15px" }}
-              >
-                Estados
-              </Typography>
-              <Box
-                component="span"
-                sx={{
-                  p: 2,
-                  border: "1px dashed grey",
-                  display: "inline-block",
-                }}
-              >
-                {cities?.map((city: ICitiesItem) => (
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    style={{
-                      color: "#FFF",
-                      marginRight: "5px",
-                      marginBottom: "5px",
-                    }}
-                    onClick={() => handleDeleteCities(city.id)}
-                  >
-                    {city.name}
-                    <RemoveIcon></RemoveIcon>
-                  </Button>
-                ))}
-                <Button
-                  variant="contained"
-                  color="success"
-                  style={{ color: "#FFF" }}
-                  onClick={() => {
-                    handleClickOpen();
-                  }}
-                >
-                  Agregar Estado <AddIcon></AddIcon>
-                </Button>
-              </Box>
-              <AddEstado close={handleClose} open={open} setOpen={setOpen} />
             </Grid>
 
             <Grid item xs={12}>

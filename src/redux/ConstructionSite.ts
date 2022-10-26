@@ -77,7 +77,7 @@ const useConstructionSite = (): IConstructionSite => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true);
   const { constructionSite, newConstructionSite, updateConstructionSite } = useSelector(
-    (state: RootReducerInterface) => state.ConstructionSites
+    (state: RootReducerInterface) => state.constructionSites
   );
 
   const CreateConstructionSiteRedux = async (ConstructionSite: INewConstructionSite): Promise<void> => {
