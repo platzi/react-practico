@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open --port 3000 --env name=Aviato --env version=1.0.0 --env environment=development",
-    "build": "webpack serve --open --port 3000 --mode production --env name=Aviato --env version=1.0.0 --env environment=development"
+    "build": "webpack --mode production --env name=Aviato --env version=1.0.0 --env environment=development"
   },
   "keywords": [
     "react",
