@@ -1,5 +1,6 @@
-import { useRef, SyntheticEvent } from "react";
+import { useRef, SyntheticEvent, useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 import logo from "@logos/green.png";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useAuth } from "@redux/Auth";
@@ -8,7 +9,20 @@ import "@styles/Login.scss";
 
 const Login = () => {
   const form = useRef(null);
-  const { LoginRedux, loading, user } = useAuth();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [redirected, setRedirected] = useState(false);
+  const { LoginRedux, user } = useAuth();
+
+  const handleLoginAdmin = () => {
+    setLoading(true);
+    setTimeout(() => {history.push("/dashboard/contratista/perfil");}, 2000);
+  };
+
+  const handleLoginChecker = () => {
+    setLoading(true);
+    setTimeout(() => {window.location.href = "/checker/perfil";}, 2000);
+  };
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     if (form.current) {
@@ -17,16 +31,14 @@ const Login = () => {
         email: formData.get("email"),
         password: formData.get("password"),
       };
-      await LoginRedux(payload).then(() => {
-        if (user && user.role === "admin") {
-          setTimeout((window.location.href = "/dashboard/perfil"), 3000);
-        }
-        if (user && user.role === "checker") {
-          setTimeout((window.location.href = "/checker/perfil"), 3000);
-        }
+      setLoading(false);
+      await LoginRedux(payload).then((res: any) => {
+        setRedirected(true);
       });
-      if (!user) {
-        toast.error("Email o contraseña incorrectos.");
+
+      if(user === undefined){
+        setLoading(true);
+        toast.error("Usuario o contraseña incorrectos");
       }
     }
   };
@@ -34,6 +46,26 @@ const Login = () => {
   const handleRedirectSigup = () => {
     window.location.href = "/crear-cuenta";
   };
+
+  useEffect(() => {
+    if (user) {
+      if (user?.role === "admin") {
+        handleLoginAdmin();
+      } else if (user?.role === "checker") {
+        handleLoginChecker();
+      }
+    }
+  }, [redirected === true]);
+
+  useEffect(() => {
+    if (user) {
+      if (user?.role === "admin") {
+        handleLoginAdmin();
+      } else if (user?.role === "checker") {
+        handleLoginChecker();
+      }
+    }
+  }, []);
 
   return (
     <div className="Login">

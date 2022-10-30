@@ -92,7 +92,7 @@ interface ReducerActionsInterface {
 /**
  * Hooks
  */
-const defaultUser: Profile = {id: 0, createdAt: '', email: '', name: '', recoveryToken: '', role: ''};
+const defaultUser: Profile = {id: 0, createdAt: '', email: '', name: '', recoveryToken: '', role: '', id_contractor: 0};
 const useAuth = (): IUseAuth => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true);
@@ -121,7 +121,22 @@ const useAuth = (): IUseAuth => {
         })
       );
     } catch (error) {
+      const payload: ContentBaseInterface = {
+        checkers,
+        recovery,
+        email: '',
+        register,
+        token: '',
+        user: undefined,
+        loading,
+      };
         setLoading(true);
+        dispatch(
+          actionEvent<ContentActionsContants, ContentBaseInterface>({
+            type: ContentActionsContants.SUCCES_LOGIN,
+            payload,
+          })
+        );
     }
   };
 
@@ -328,7 +343,7 @@ const initialState: ContentBaseInterface = {
   recovery: 0,
   email: '',
   register: 0,
-  user: undefined,
+  user: defaultUser,
   token: "",
   loading: true,
 };
@@ -341,6 +356,7 @@ const userAuthReducer = (
     case ContentActionsContants.SUCCES_LOGIN:
       return {
         ...state,
+        token: action.payload.token,
         user: action.payload.user,
       };
     case ContentActionsContants.SUCCES_LOGOUT:

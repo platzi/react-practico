@@ -97,7 +97,6 @@ const TabAccount = () => {
     if (contractor) {
       setContractorProfile(contractor);
       ListCheckersRedux(contractor.id);
-      console.log("checkers", checkers);
     }
   }, [contractor]);
 

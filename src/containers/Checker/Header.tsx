@@ -101,7 +101,6 @@ function Header(props: any) {
                 <MenuItem
                   onClick={() => {
                     handleClose();
-                    //history.push("/dashboard/perfil");
                   }}
                 >
                   <AccountCircleIcon></AccountCircleIcon>Perfil

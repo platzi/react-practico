@@ -92,10 +92,12 @@ export default function Navigator(props: any) {
   const GetBusinessRedux = async () => {
     await ListContractorRedux(user.id);
     await ListBusinessRedux(user.id);
-    if (contractor[0]?.id !== undefined || null) {
-      setSelectedIndex(contractor[0].id);
-      const list = document.getElementsByClassName("item-contractor")[0] as HTMLElement;
-      list.click();
+    if(user.role === "admin"){
+      if (contractor[0]?.id !== undefined || null) {
+        setSelectedIndex(contractor[0].id);
+        const list = document.getElementsByClassName("item-contractor")[0] as HTMLElement;
+        list.click();
+      }
     }
   };
 
@@ -110,7 +112,6 @@ export default function Navigator(props: any) {
           src={logo}
           alt="logo"
           className="logo-item"
-          onClick={() => redirect(`/dashboard/perfil`)}
         />
       </List>
       <List

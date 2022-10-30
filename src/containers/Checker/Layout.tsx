@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect} from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Header from "./Header";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "@redux/Auth";
 import "@styles/global.css";
 
 function Copyright() {
@@ -129,6 +131,8 @@ let themeDefault = createTheme({
   spacing: 8,
 });
 const Checker = ({ children }: any) => {
+  const { user } = useAuth();
+  const history = useHistory();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(themeDefault.breakpoints.up("sm"));
 

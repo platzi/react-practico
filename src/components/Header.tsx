@@ -34,11 +34,11 @@ function Header(props: any) {
     setAnchorEl(null);
   };
   const handleLogout = async () => {
-    await LogoutRedux();
+    await LogoutRedux().then(() => {
+      window.location.href = "/iniciar-sesión";
+    });
     handleClose();
-    if (user === undefined) {
-      window.location.href = "/";
-    }    
+ 
   };
   
   return (
@@ -82,7 +82,7 @@ function Header(props: any) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={()=>{handleClose(); history.push('/dashboard/perfil');}}>
+                <MenuItem onClick={()=>{handleClose();}}>
                   <AccountCircleIcon></AccountCircleIcon>Perfil
                 </MenuItem>
                 <Divider />
