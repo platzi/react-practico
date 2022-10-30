@@ -1,8 +1,28 @@
+import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import Header from "./Header";
+import "@styles/global.css";
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://andejecruher.com">
+        Andejecruher
+      </Link>{" "}
+      {new Date().getFullYear()}.
+    </Typography>
+  );
+}
 
 let themeDefault = createTheme({
   palette: {
-    type: 'dark',
+    type: "dark",
     primary: {
       main: "#00ab55",
       contrastText: "#ffffff",
@@ -108,12 +128,32 @@ let themeDefault = createTheme({
   direction: "rtl",
   spacing: 8,
 });
-const Layout = ({ children }: any) => {
+const Checker = ({ children }: any) => {
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const isSmUp = useMediaQuery(themeDefault.breakpoints.up("sm"));
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
   return (
     <ThemeProvider theme={themeDefault}>
-      <div className="Layout">{children}</div>
+      <Box sx={{ display: "flex", minHeight: "100vh" }}>
+        <CssBaseline />
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+          <Header onDrawerToggle={handleDrawerToggle} />
+          <Box
+            component="main"
+            sx={{ flex: 1, py: 6, px: 4, bgcolor: "#eaeff1" }}
+          >
+            {children}
+          </Box>
+          <Box component="footer" sx={{ p: 2, bgcolor: "#eaeff1" }}>
+            <Copyright />
+          </Box>
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 };
 
-export default Layout;
+export default Checker;

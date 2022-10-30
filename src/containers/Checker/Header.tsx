@@ -15,10 +15,9 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Divider from "@material-ui/core/Divider";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import TabPanel from '@components/TabPanel';
-import TabPanelBusiness from '@components/TabPanelBusiness';
-import { useAuth } from '@redux/Auth';
-import { useAviato } from '@redux/Aviato';
+import logo from "@logos/green.png";
+import { useAuth } from "@redux/Auth";
+import { useAviato } from "@redux/Aviato";
 import "@styles/Header.scss";
 
 function Header(props: any) {
@@ -38,24 +37,41 @@ function Header(props: any) {
     handleClose();
     if (user === undefined) {
       window.location.href = "/";
-    }    
+    }
   };
-  
+
+  const redirect = (page: string) => {
+    history.push(page);
+  };
+
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
         <Toolbar>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/checker/perfil"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            <img
+              src={logo}
+              alt="logo"
+              className="logo-item"
+                style={{ width: "50%" }}
+              //onClick={() => redirect(`/checker/perfil`)}
+            />
+          </Typography>
           <Grid container spacing={1} alignItems="center">
-            <Grid sx={{ display: { sm: "none", xs: "block" } }} item>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={onDrawerToggle}
-                edge="start"
-              >
-                <MenuIcon />
-              </IconButton>
-            </Grid>
             <Grid item xs />
             <Grid item className="alertas">
               <Tooltip title="Alerts • No alerts">
@@ -73,7 +89,7 @@ function Header(props: any) {
                 aria-haspopup="true"
                 onClick={handleClick}
               >
-                <Avatar src={'https://i.pravatar.cc/300'} alt="My Avatar" />
+                <Avatar src={"https://i.pravatar.cc/300"} alt="My Avatar" />
               </IconButton>
               <Menu
                 id="simple-menu"
@@ -82,7 +98,12 @@ function Header(props: any) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={()=>{handleClose(); history.push('/dashboard/perfil');}}>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    //history.push("/dashboard/perfil");
+                  }}
+                >
                   <AccountCircleIcon></AccountCircleIcon>Perfil
                 </MenuItem>
                 <Divider />
@@ -93,31 +114,6 @@ function Header(props: any) {
             </Grid>
           </Grid>
         </Toolbar>
-      </AppBar>
-      <AppBar
-        component="div"
-        color="primary"
-        position="static"
-        elevation={0}
-        sx={{ zIndex: 0 }}
-      >
-        <Toolbar>
-          <Grid container alignItems="center" spacing={1}>
-            <Grid item xs>
-              <Typography color="inherit" variant="h5" component="h3">
-                {contractor?.name || business?.name || user?.name} 
-              </Typography>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      <AppBar
-        component="div"
-        position="static"
-        elevation={0}
-        sx={{ zIndex: 0 }}
-      > 
-        {contractor?.id ? <TabPanel /> : <TabPanelBusiness />}
       </AppBar>
     </React.Fragment>
   );

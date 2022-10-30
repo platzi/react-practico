@@ -15,7 +15,7 @@ import { useAuth } from '@redux/Auth';
 export default function Home() {
   const { user } = useAuth();
   return (
-    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+    <Paper sx={{ maxWidth: 1500, margin: 'auto', overflow: 'hidden' }}>
       <AppBar
         position="static"
         color="default"
@@ -39,7 +39,7 @@ export default function Home() {
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" color="buttonPrimary" sx={{ mr: 1 }}>
+              <Button variant="contained" color="primary" sx={{ mr: 1 }}>
                 Home de Dashboard
               </Button>
               <Tooltip title="Reload">

@@ -58,6 +58,7 @@ module.exports = (env) => {
         "@serevices": path.resolve(__dirname, "src/services/"),
         "@core": path.resolve(__dirname, "src/core/"),
         "@helpers": path.resolve(__dirname, "src/helpers/"),
+        "@configs": path.resolve(__dirname, "src/configs/"),
       },
     },
     output: {

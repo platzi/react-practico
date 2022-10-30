@@ -2,10 +2,14 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionEvent } from "../common/utils";
 import { RootReducerInterface } from "./store";
-import {
+import { 
+  UpdateCheckersService,
   loginService,
   RegisterUserService,
   RecoveryPasswordUserService,
+  SendCredentialsUserService,
+  ListCheckersService,
+  DeleteCheckersService,
 } from "../services/userServices";
 
 /**
@@ -20,6 +24,14 @@ enum ContentActionsContants {
   ERROR_REGISTER = "ERROR_REGISTER",
   SUCCES_RECOVERY = "SUCCES_RECOVERY",
   ERROR_RECOVERY = "ERROR_RECOVERY",
+  SUCCES_SEND_CREDENCIAL_CHECKER = "SUCCES_SEND_CREDENCIAL_CHECKER",
+  ERROR_SEND_CREDENCIAL_CHECKER = "ERROR_SEND_CREDENCIAL_CHECKER",
+  SUCCES_LIST_CHECKERS = "SUCCES_LIST_CHECKERS",
+  ERROR_LIST_CHECKERS = "ERROR_LIST_CHECKERS",
+  SUCCES_DELETE_CHECKER = "SUCCES_DELETE_CHECKERS",
+  ERROR_DELETE_CHECKER = "ERROR_DELETE_CHECKERS",
+  SUCCES_UPDATE_CHECKER = "SUCCES_UPDATE_CHECKERS",
+  ERROR_UPDATE_CHECKER = "ERROR_UPDATE_CHECKERS",
 }
 
 /**
@@ -30,6 +42,7 @@ interface ContentBaseInterface {
   email: string;
   register: number;
   token: string;
+  checkers: Profile[];
   user: Profile | undefined;
   loading: boolean;
 }
@@ -38,13 +51,14 @@ interface IRecovery {
   email: string;
 }
 
-interface Profile {
+export interface Profile {
   id: number;
   createdAt: string;
   email: string;
   name: string;
   recoveryToken: string;
   role: string;
+  id_contractor: number;
 }
 
 interface IUser {
@@ -60,6 +74,10 @@ interface INewUser {
 };
 
 interface IUseAuth extends ContentBaseInterface {
+  UpdateCheckersRedux: (id: number, changes: any) => void;
+  DeleteCheckerRedux: (id: number) => void;
+  ListCheckersRedux: (id_contractor: number) => void;
+  SendCredencialCheckerRedux: (email: string, password: string) => void;
   RecoveryPasswordRedux: (user: IRecovery) => void;
   RegisterUserRedux: (user: INewUser) => void;
   LoginRedux: (user: IUser) => void;
@@ -78,7 +96,7 @@ const defaultUser: Profile = {id: 0, createdAt: '', email: '', name: '', recover
 const useAuth = (): IUseAuth => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true);
-  const { user, token, register, email, recovery } = useSelector(
+  const { user, checkers, token, register, email, recovery } = useSelector(
     (state: RootReducerInterface) => state.user
   );
 
@@ -88,6 +106,7 @@ const useAuth = (): IUseAuth => {
       const response = await loginService(user);
       setLoading(true);
       const payload: ContentBaseInterface = {
+        checkers,
         recovery,
         email: '',
         register,
@@ -109,6 +128,7 @@ const useAuth = (): IUseAuth => {
   const LogoutRedux = async (): Promise<void> => {
     try {
       const payload: ContentBaseInterface = {
+        checkers,
         recovery,
         email: '' ,
         register,
@@ -116,6 +136,9 @@ const useAuth = (): IUseAuth => {
         user: undefined,
         loading,
       };
+      //how create function remove localstorage in redux
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('persistanStateAviato');
       dispatch(
         actionEvent<ContentActionsContants, ContentBaseInterface>({
           type: ContentActionsContants.SUCCES_LOGOUT,
@@ -133,6 +156,7 @@ const useAuth = (): IUseAuth => {
       const response = await RegisterUserService(user);
       setLoading(true);
       const payload: ContentBaseInterface = {
+        checkers,
         recovery,
         email,
         register: response,
@@ -158,6 +182,7 @@ const useAuth = (): IUseAuth => {
       const response =  await RecoveryPasswordUserService(user);
       setLoading(true);
       const payload: ContentBaseInterface = {
+        checkers,
         recovery: response,
         email: user.email,
         register,
@@ -176,7 +201,108 @@ const useAuth = (): IUseAuth => {
     }
   };
 
+  const SendCredencialCheckerRedux = async (email: string, password: string): Promise<void> => {
+    try {
+      setLoading(false);
+      await SendCredentialsUserService(email, password);
+      setLoading(true);
+      const payload: ContentBaseInterface = {
+        checkers,
+        recovery,
+        email,
+        register,
+        token,
+        user,
+        loading,
+      };
+      dispatch(
+        actionEvent<ContentActionsContants, ContentBaseInterface>({
+          type: ContentActionsContants.SUCCES_SEND_CREDENCIAL_CHECKER,
+          payload,
+        })
+      );
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  const ListCheckersRedux = async (id_contractor: number): Promise<void> => {
+    try {
+      setLoading(false);
+      const response = await ListCheckersService(id_contractor);
+      setLoading(true);
+      const payload: ContentBaseInterface = {
+        checkers: response,
+        recovery,
+        email,
+        register,
+        token,
+        user,
+        loading,
+      };
+      dispatch(
+        actionEvent<ContentActionsContants, ContentBaseInterface>({
+          type: ContentActionsContants.SUCCES_LIST_CHECKERS,
+          payload,
+        })
+      );
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  const DeleteCheckerRedux = async (id: number): Promise<void> => {
+    try {
+      setLoading(false);
+      await DeleteCheckersService(id);
+      setLoading(true);
+      const payload: ContentBaseInterface = {
+        checkers,
+        recovery,
+        email,
+        register,
+        token,
+        user,
+        loading,
+      };
+      dispatch(
+        actionEvent<ContentActionsContants, ContentBaseInterface>({
+          type: ContentActionsContants.SUCCES_DELETE_CHECKER,
+          payload,
+        })
+      );
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  const UpdateCheckersRedux = async (id: number, changes: any): Promise<void> => {
+    try {
+      setLoading(false);
+      await UpdateCheckersService(id, changes);
+      setLoading(true);
+      const payload: ContentBaseInterface = {
+        checkers,
+        recovery,
+        email,
+        register,
+        token,
+        user,
+        loading,
+      };
+      dispatch(
+        actionEvent<ContentActionsContants, ContentBaseInterface>({
+          type: ContentActionsContants.SUCCES_UPDATE_CHECKER,
+          payload,
+        })
+      );
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   return {
+    checkers,
     recovery,
     email,
     register,
@@ -187,6 +313,10 @@ const useAuth = (): IUseAuth => {
     LogoutRedux,
     RegisterUserRedux,
     RecoveryPasswordRedux,
+    SendCredencialCheckerRedux,
+    ListCheckersRedux,
+    DeleteCheckerRedux,
+    UpdateCheckersRedux,
   };
 };
 
@@ -194,6 +324,7 @@ const useAuth = (): IUseAuth => {
  * Reducers
  */
 const initialState: ContentBaseInterface = {
+  checkers: [],
   recovery: 0,
   email: '',
   register: 0,
@@ -227,6 +358,11 @@ const userAuthReducer = (
         ...state,
         recovery: action.payload.recovery,
         email: action.payload.email,
+      };
+    case ContentActionsContants.SUCCES_LIST_CHECKERS:
+      return {
+        ...state,
+        checkers: action.payload.checkers,
       };
     default:
       return state;

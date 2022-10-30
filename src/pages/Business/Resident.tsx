@@ -30,6 +30,7 @@ export default function Resident() {
 
   useEffect(() => {
     ListResidentRedux(business.id);
+    console.log(business);
   }, []);
 
   return (

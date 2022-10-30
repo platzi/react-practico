@@ -18,9 +18,12 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Button, { ButtonProps } from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import MaterialTable from "material-table";
+import { useAuth } from "@redux/Auth";
 import { useAviato } from "@redux/Aviato";
 import { useContractor, IContractorItem } from "@redux/Contractor";
-import { useBusiness } from '@redux/Business';
+import { useBusiness } from "@redux/Business";
+
 
 // ** Icons Imports
 
@@ -53,6 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const TabAccount = () => {
   // ** State
   const classes = useStyles();
+  const { checkers, RegisterUserRedux, SendCredencialCheckerRedux, ListCheckersRedux, DeleteCheckerRedux, UpdateCheckersRedux } = useAuth();
   const { contractor } = useAviato();
   const { UpdateContractorRedux } = useContractor();
   const { business } = useBusiness();
@@ -92,6 +96,8 @@ const TabAccount = () => {
   useEffect(() => {
     if (contractor) {
       setContractorProfile(contractor);
+      ListCheckersRedux(contractor.id);
+      console.log("checkers", checkers);
     }
   }, [contractor]);
 
@@ -138,24 +144,7 @@ const TabAccount = () => {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput2"
-              >
-                <Form.Select aria-label="Selecciona" onChange={(e) =>{setContractorProfile({...contractorProfile, id_business: e.target.value}) }} value={contractorProfile?.id_business}>
-                  {business.map((item: any) => (
-                    <option
-                      key={item.id}
-                      value={item.id}
-                      defaultValue={item.id}
-                    >
-                      {item.name}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-            </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="standard"
@@ -169,7 +158,93 @@ const TabAccount = () => {
                 onChange={handleInputChange}
               />
             </Grid>
-
+            <Grid item xs={12} sm={6}>
+              <MaterialTable
+                title="Checadores"
+                columns={[
+                  { title: "#", field: "id" },
+                  { title: "Nombre", field: "name" },
+                  { title: "Correo", field: "email" },
+                ]}
+                data={checkers}
+                editable={{
+                  onRowAdd: (newData) =>
+                    new Promise((resolve, reject) => {
+                      setTimeout(async() => {
+                        const payload = {
+                          name: newData.name,
+                          email: newData.email,
+                          password: "Aviato2022",
+                          role: "checker",
+                          id_contractor: contractorProfile?.id,
+                        };
+                        await RegisterUserRedux(payload).then(() => {
+                          toast.success("Checador creado correctamente");
+                        });
+                        await SendCredencialCheckerRedux(payload.email, payload.password);
+                        await ListCheckersRedux(contractorProfile?.id);
+                        resolve(checkers);
+                      }, 1000);
+                    }),
+                  onRowUpdate: (newData, oldData) =>
+                    new Promise((resolve, reject) => {
+                      setTimeout(async() => {
+                        await UpdateCheckersRedux(newData.id, newData).then(() => {
+                          toast.success("Checador actualizado correctamente");
+                        });
+                        resolve(checkers);
+                      }, 1000);
+                    }),
+                  onRowDelete: (oldData) =>
+                    new Promise((resolve, reject) => {
+                      setTimeout(async () => {
+                        await DeleteCheckerRedux(oldData.id);
+                        toast.success("Contratista eliminado Correctamente.");
+                        await ListCheckersRedux(contractorProfile?.id);
+                        resolve(checkers);
+                      }, 1000);
+                    }),
+                }}
+                options={{
+                  headerStyle: {
+                    backgroundColor: "rgb(32, 201, 151)",
+                    color: "#FFF",
+                  },
+                  actionsColumnIndex: -1,
+                  showFirstLastPageButtons: true,
+                  pageSize: 5,
+                  pageSizeOptions: [5, 20, 50],
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput2"
+              >
+                <Form.Select
+                  aria-label="Selecciona"
+                  onChange={(e) => {
+                    setContractorProfile({
+                      ...contractorProfile,
+                      id_business: e.target.value,
+                    });
+                  }}
+                  value={contractorProfile?.id_business}
+                >
+                  {business.map((item: any) => (
+                    <option
+                      key={item.id}
+                      value={item.id}
+                      defaultValue={item.id}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Grid>
+          
             <Grid item xs={12}>
               <Divider variant="middle" />
             </Grid>

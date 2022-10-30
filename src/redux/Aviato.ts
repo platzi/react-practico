@@ -62,7 +62,7 @@ const useAviato = (): IAviato => {
     try {
       setLoading(true);
       const payload: ContentBaseInterface = {
-        business: null,
+        business,
         contractor: contractor,
         loading,
       };
@@ -83,7 +83,7 @@ const useAviato = (): IAviato => {
       setLoading(true);
       const payload: ContentBaseInterface = {
         business: business,
-        contractor: null,
+        contractor,
         loading,
       };
       setLoading(false);
@@ -111,8 +111,8 @@ return {
  * Reducers
  */
 const initialState: ContentBaseInterface = {
-  business: null,
-  contractor: null,
+  business: {id: 0, name: "", reg_patronal: "", rfc: "", id_user: 0, created_at: ""},
+  contractor: {id: 0, name: "", rfc: "", id_business: 0, id_user: 0},
   loading: false,
 };
 

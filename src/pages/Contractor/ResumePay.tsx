@@ -25,15 +25,14 @@ export default function ResumePay() {
     UpdateResumePayRedux,
     DeleteResumePayRedux,
   } = useResumePay();
+  const [viewResumePay, setViewResumePay] = useState(true);
+  const [resumePayItem, setNewResumePay] = useState<IResumePay>();
   const [columns, setColumns] = useState<any>([
     { title: "#", field: "id", editable: "offUpdate" },
     {
       title: "Dia De Pago",
       field: "period",
       type: "date",
-      dateSetting: {
-        format: "YYYY-MM-DD",
-      },
     },
     { title: "Nombre", field: "name", initialEditValue: "nombre" },
     {
@@ -43,7 +42,7 @@ export default function ResumePay() {
       render: (rowData: any) => {
         return (
           <div>
-            <Button variant="contained" endIcon={<FileOpenIcon />}>
+            <Button variant="contained" endIcon={<FileOpenIcon />} onClick={() =>{ handleSetResumePayData(rowData)}}>
               Abrir
             </Button>
           </div>
@@ -51,6 +50,11 @@ export default function ResumePay() {
       },
     },
   ]);
+
+  const handleSetResumePayData = (rowData: IResumePay) => {
+    setNewResumePay(rowData);
+    setViewResumePay(false);
+  };
   const handleCreateResumePay = async (newResumePay: INewResumePay) => {
     const payload = {
       name: newResumePay.name,
@@ -67,7 +71,7 @@ export default function ResumePay() {
   useEffect(() => {
     ListResumePayRedux(contractor.id);
   }, []);
-  const viewResumePay = false;
+
   return (
     <Paper sx={{ maxWidth: 1600, margin: "auto", overflow: "hidden" }}>
       {viewResumePay ? (
@@ -141,7 +145,7 @@ export default function ResumePay() {
             }),
         }}
       />
-      ) : <ResumePayData />}
+      ) : <ResumePayData data={resumePayItem}/>}
       <ToastContainer />
     </Paper>
   );

@@ -5,10 +5,10 @@ import { createContext, useState, ReactNode } from 'react'
 import { PaletteMode } from '@mui/material'
 
 // ** ThemeConfig Import
-import themeConfig from 'src/configs/themeConfig'
+import themeConfig from '@configs/themeConfig'
 
 // ** Types Import
-import { ThemeColor, ContentWidth } from 'src/@core/layouts/types'
+import { ThemeColor, ContentWidth } from '@core/layouts/types'
 
 export type Settings = {
   mode: PaletteMode

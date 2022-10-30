@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import clsx from 'clsx';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navigator(props: any) {
   const history = useHistory();
   const classes = useStyles();
+  const params = useParams();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [selectedBusinessIndex, setSelectedBusinessIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
@@ -109,7 +110,7 @@ export default function Navigator(props: any) {
           src={logo}
           alt="logo"
           className="logo-item"
-          onClick={() => redirect(`/dashboard/home`)}
+          onClick={() => redirect(`/dashboard/perfil`)}
         />
       </List>
       <List

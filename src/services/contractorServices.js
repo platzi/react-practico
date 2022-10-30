@@ -17,3 +17,9 @@ export const updateContractorService = (id, payload) => {
     return res.data;
   });
 }
+
+export const getContractorService = (id) => {
+  return axios.get(`${process.env.API_URL}/contractor/get/${id}`).then(res => {
+    return res.data;
+  });
+};
