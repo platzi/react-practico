@@ -101,6 +101,8 @@ export default function Navigator(props: any) {
           const list = document.getElementsByClassName("item-contractor")[0] as HTMLElement;
           list.click();
         }
+      }else{
+        history.push("/dashboard/perfil");
       } 
     }
   };

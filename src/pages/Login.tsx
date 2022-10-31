@@ -16,12 +16,12 @@ const Login = () => {
 
   const handleLoginAdmin = () => {
     setLoading(true);
-    setTimeout(() => {history.push("/dashboard/contratista/perfil");}, 2000);
+    setTimeout(() => {history.push("/dashboard/contratista/perfil");}, 1000);
   };
 
   const handleLoginChecker = () => {
     setLoading(true);
-    setTimeout(() => {window.location.href = "/checker/perfil";}, 2000);
+    setTimeout(() => {window.location.href = "/checker/perfil";}, 1000);
   };
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -36,7 +36,7 @@ const Login = () => {
         setRedirected(true);
       });
 
-      if(user === undefined){
+      if(user === undefined && redirected === false){
         setLoading(true);
         toast.error("Usuario o contraseña incorrectos");
       }

@@ -141,7 +141,7 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
   }, []);
 
   return (
-    <Paper sx={{ maxWidth: 1600, margin: "auto", overflow: "hidden" }}>
+    <Paper >
       <MaterialTable
         title={`Resumen de Pago ${data.name}`}
         columns={columns}

@@ -89,7 +89,7 @@ const App = () => {
             <Dashboard>
               <Route
                 exact
-                path="/dashboard/contratista/perfil"
+                path="/dashboard/perfil"
                 render={() => {
                   return role === "admin" ? (
                     <EngeinerProfile />
