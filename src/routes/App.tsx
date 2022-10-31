@@ -37,66 +37,32 @@ const App = () => {
               <Route
                 exact
                 path="/"
-                render={() => {
-                  return user ? (
-                    <AuthLogin />
-                  ) : (<Redirect to="/iniciar-sesión" />);
-                }}
+                render={() => <Redirect to="/iniciar-sesión" /> }
               />
               <Route
-                exact
+                exact 
                 path="/iniciar-sesión"
-                render={() => {
-                  return user ? (
-                    <AuthLogin />
-                  ) : (
-                    <Login />
-                  );
-                }}
+                render={() => <Login />}
               />
               <Route
                 exact
                 path="/recuperar-contrasena"
-                render={() => {
-                  return user ? (
-                    <AuthLogin />
-                  ) : (
-                    <PasswordRecovery />
-                  );
-                }}
+                render={() => <PasswordRecovery />}
               />
               <Route
                 exact
                 path="/correo-enviado"
-                render={() => {
-                  return user ? (
-                    <AuthLogin />
-                  ) : (
-                    <SendEmail />
-                  );
-                }}
+                render={() => <SendEmail />}
               />
               <Route
                 exact
                 path="/nueva-contrasena"
-                render={() => {
-                  return user ? (
-                    <AuthLogin />
-                  ) : (
-                    <NewPassword />
-                  );
-                }}
+                render={() => <NewPassword />}
               />
               <Route
                 exact
                 path="/crear-cuenta"
-                render={() => {
-                  return user ? (
-                    <AuthLogin />
-                  ) : (
-                    <CreateAccount />
-                  );
-                }}
+                render={() => <CreateAccount />}
               />
             </Layout>
           </Switch>
@@ -125,7 +91,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/perfil"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <EngeinerProfile />
                   ) : (
                    <Redirect to="/checker/perfil" />
@@ -142,7 +108,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/perfil"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <ContractorProfile />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -153,7 +119,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/trabajadores"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <Employees />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -164,7 +130,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/resumen-de-pagos"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <ResumePay />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -181,7 +147,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/perfil"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <BusinessProfile />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -192,7 +158,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/construction-site"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <ConstructionSite />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -203,7 +169,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/puestos"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <Jobs />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -214,7 +180,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/residentes"
                 render={() => {
-                  return role === "admin" ? (
+                  role === "admin" ? (
                     <Resident />
                   ) : (
                     <Redirect to="/iniciar-sesión" />

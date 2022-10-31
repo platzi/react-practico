@@ -16,7 +16,9 @@ import { useHistory } from "react-router-dom";
             history.push("/iniciar-sesión");
             break;
    };
-   return null;
+   return (
+        <div></div>
+   );
   };
   
   export default AuthLogin;
