@@ -95,11 +95,13 @@ export default function Navigator(props: any) {
     await ListContractorRedux(user.id);
     await ListBusinessRedux(user.id);
     if(user.role === "admin"){
-      if (contractor[0]?.id !== undefined || null) {
-        setSelectedIndex(contractor[0].id);
-        const list = document.getElementsByClassName("item-contractor")[0] as HTMLElement;
-        list.click();
-      }
+      if(contractor.length > 0){
+        if (contractor[0]?.id !== undefined || null) {
+          setSelectedIndex(contractor[0].id);
+          const list = document.getElementsByClassName("item-contractor")[0] as HTMLElement;
+          list.click();
+        }
+      } 
     }
   };
 
