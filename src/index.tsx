@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom/client'
+var ReactDOM = require('react-dom/client');
 import App from "./routes/App";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
