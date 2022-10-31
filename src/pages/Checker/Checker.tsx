@@ -23,6 +23,10 @@ import { useResident, IResidentItem } from "@redux/Resident";
 interface IResumePayDataTable {
   data: IResumePay;
 }
+const options = [
+  {id: 1, value: true, name: "Asistencia" },
+  {id: 0, value: false, name: "Falta" },
+]
 export default function CheckerList() {
   const { useState } = React;
   const { user } = useAuth();
@@ -110,6 +114,10 @@ export default function CheckerList() {
     {
       title: "Total a pagar",
       field: "total_pay",
+      editComponent: (props: any) => {
+        const total = parseFloat(props.rowData.salary) + parseFloat(props.rowData.overtime);
+        return <div>{total.toFixed(2)}</div>;
+      },
       render: (rowData: any) => {
         return <div>{parseFloat(rowData.total_pay).toFixed(2)}</div>;
       },
@@ -117,6 +125,11 @@ export default function CheckerList() {
     {
       title: "Deposito",
       field: "deposit",
+      editComponent: (props: any) => {
+        const total = parseFloat(props.rowData.salary) + parseFloat(props.rowData.overtime);
+        const deposit = (total - parseFloat(props.rowData.infonavit) - parseFloat(props.rowData.fonacot));
+        return <div>{deposit.toFixed(2)}</div>;
+      },
       render: (rowData: any) => {
         return <div>{parseFloat(rowData.deposit).toFixed(2)}</div>;
       },
@@ -156,30 +169,58 @@ export default function CheckerList() {
     {
       title: "L",
       field: "lunes",
+      lookup: options.reduce((acc: any, item: any) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {}),
     },
     {
       title: "M",
       field: "Martes",
+      lookup: options.reduce((acc: any, item: any) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {}),
     },
     {
       title: "M",
       field: "Miercoles",
+      lookup: options.reduce((acc: any, item: any) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {}),
     },
     {
       title: "J",
       field: "Jueves",
+      lookup: options.reduce((acc: any, item: any) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {}),
     },
     {
       title: "V",
       field: "Viernes",
+      lookup: options.reduce((acc: any, item: any) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {}),
     },
     {
       title: "S",
       field: "Sabado",
+      lookup: options.reduce((acc: any, item: any) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {}),
     },
     {
       title: "D",
       field: "Domingo",
+      lookup: options.reduce((acc: any, item: any) => {
+        acc[item.id] = item.name;
+        return acc;
+      }, {}), 
     },
   ]);
 
@@ -283,7 +324,7 @@ export default function CheckerList() {
           />
         )}
 
-        {viewTable === "resumePayData" && (
+        {viewTable === "listPay" && (
           <MaterialTable
             title={`Lista De Pago`}
             columns={columns}

@@ -5,7 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from '@mui/icons-material/Home';
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toolbar from "@mui/material/Toolbar";
@@ -41,7 +41,7 @@ function Header(props: any) {
   };
 
   const redirect = (page: string) => {
-    history.push(page);
+    window.location.href = page;
   };
 
   return (
@@ -71,6 +71,16 @@ function Header(props: any) {
               //onClick={() => redirect(`/checker/perfil`)}
             />
           </Typography>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2 }}
+            onClick={() => redirect(`/checker/perfil`)}
+          >
+            <HomeIcon />
+          </IconButton>
           <Grid container spacing={1} alignItems="center">
             <Grid item xs />
             <Grid item className="alertas">
