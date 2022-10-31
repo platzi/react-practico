@@ -57,6 +57,7 @@ export default function Navigator(props: any) {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
+    setBusinessRedux({});
     setSelectedBusinessIndex(0);
     setContractorRedux(contractor.find((item: any) => item.id === index));
     setSelectedIndex(index);
@@ -67,6 +68,7 @@ export default function Navigator(props: any) {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
+    setContractorRedux({});
     setSelectedIndex(0);
     setBusinessRedux(business.find((item: any) => item.id === index));
     setSelectedBusinessIndex(index);

@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from '@redux/Auth';
 const PasswordRecovery = () => {
 	const history = useHistory();
-  const { loading, recovery, RecoveryPasswordRedux } = useAuth(); 
+  const { user, loading, recovery, RecoveryPasswordRedux } = useAuth(); 
 	const form = useRef(null);
   const [validateEmail, setValidateEmail] = useState(false);
 	const handleSubmit = async (event) => {
@@ -52,6 +52,23 @@ const PasswordRecovery = () => {
         break;
     }
   };
+  const handleLoginAdmin = () => {
+		setTimeout(() => {window.location.href = "/dashboard/contratista/perfil";}, 2000);
+	  };
+	
+	  const handleLoginChecker = () => {
+		setTimeout(() => {window.location.href = "/checker/perfil";}, 2000);
+	  };
+	
+	  useEffect(() => {
+		if (user) {
+		  if (user?.role === "admin") {
+			handleLoginAdmin();
+		  } else if (user?.role === "checker") {
+			handleLoginChecker();
+		  }
+		}
+	  }, []);
   return (
     <div className="PasswordRecovery">
       <div className="PasswordRecovery-container">

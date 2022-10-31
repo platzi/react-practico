@@ -91,7 +91,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/perfil"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <EngeinerProfile />
                   ) : (
                    <Redirect to="/checker/perfil" />
@@ -108,7 +108,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/perfil"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <ContractorProfile />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -119,7 +119,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/trabajadores"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <Employees />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -130,7 +130,7 @@ const App = () => {
                 exact
                 path="/dashboard/contratista/resumen-de-pagos"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <ResumePay />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -147,7 +147,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/perfil"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <BusinessProfile />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -158,7 +158,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/construction-site"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <ConstructionSite />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -169,7 +169,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/puestos"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <Jobs />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
@@ -180,7 +180,7 @@ const App = () => {
                 exact
                 path="/dashboard/empresa/residentes"
                 render={() => {
-                  role === "admin" ? (
+                  return role === "admin" ? (
                     <Resident />
                   ) : (
                     <Redirect to="/iniciar-sesión" />

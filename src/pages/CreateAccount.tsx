@@ -1,4 +1,4 @@
-import React, { useRef, useState, SyntheticEvent } from "react";
+import React, { useRef, useState, SyntheticEvent, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "@styles/CreateAccount.scss";
 import logo from "@logos/green.png";
@@ -7,7 +7,7 @@ import { useAuth } from "@redux/Auth";
 
 const CreateAccount = () => {
   const form = useRef(null);
-  const { loading, RegisterUserRedux } = useAuth();
+  const { user, loading, RegisterUserRedux } = useAuth();
   const [validatePassword, setValidatePassword] = useState(false);
   const [validateEmail, setValidateEmail] = useState(false);
   const [validateName, setValidateName] = useState(false);
@@ -92,7 +92,14 @@ const CreateAccount = () => {
       }
     }
   };
+  
+  const handleLoginAdmin = () => {
+    setTimeout(() => {window.location.href = "/dashboard/contratista/perfil";}, 2000);
+  };
 
+  const handleLoginChecker = () => {
+    setTimeout(() => {window.location.href = "/checker/perfil";}, 2000);
+  };
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     if (form.current !== null) {
@@ -109,6 +116,17 @@ const CreateAccount = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      if (user?.role === "admin") {
+        handleLoginAdmin();
+      } else if (user?.role === "checker") {
+        handleLoginChecker();
+      }
+    }
+  }, []);
+
   return (
     <div className="CreateAccount">
       <div className="CreateAccount-container">

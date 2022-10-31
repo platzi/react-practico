@@ -124,14 +124,12 @@ const aviatoReducer = (
     case ContentActionsContants.SUCCES_SET_CONTRACTOR:
       return {
         ...state,
-        business: action.payload.business,
         contractor: action.payload.contractor,
       };
       case ContentActionsContants.SUCCESS_SET_BUSINESS:
         return {
           ...state,
           business: action.payload.business,
-          contractor: action.payload.contractor,
         };
     default:
       return state;

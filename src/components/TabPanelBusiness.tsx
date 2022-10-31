@@ -14,7 +14,7 @@ export default function IconTabs() {
     event.preventDefault();
     setValue(newValue);
   };
-  const redirect = (page) => {
+  const redirect = (page: String) => {
     history.push(page);
   };
   return (

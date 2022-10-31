@@ -82,7 +82,7 @@ export default function Employes() {
   }, []);
 
   return (
-    <Paper sx={{ maxWidth: 1600, margin: "auto", overflow: "hidden" }}>
+    <Paper>
       <MaterialTable
         title="Lista De Trabajadores"
         columns={columns}

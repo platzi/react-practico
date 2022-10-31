@@ -9,7 +9,7 @@ import { useAuth } from '@redux/Auth';
 
 const SendEmail = () => {
 	const history = useHistory();
-	const { recovery, email, RecoveryPasswordRedux } = useAuth();
+	const { user, recovery, email, RecoveryPasswordRedux } = useAuth();
 	const handleSubmit = async (event) => {
 	  event.preventDefault();  
 	  await RecoveryPasswordRedux({email});
@@ -20,6 +20,23 @@ const SendEmail = () => {
 		toast.error(`${email} hubo un error intenta de nuevo.`);
 	  }
 	};
+	const handleLoginAdmin = () => {
+		setTimeout(() => {window.location.href = "/dashboard/contratista/perfil";}, 2000);
+	  };
+	
+	  const handleLoginChecker = () => {
+		setTimeout(() => {window.location.href = "/checker/perfil";}, 2000);
+	  };
+	
+	  useEffect(() => {
+		if (user) {
+		  if (user?.role === "admin") {
+			handleLoginAdmin();
+		  } else if (user?.role === "checker") {
+			handleLoginChecker();
+		  }
+		}
+	  }, []);
 	return (
 		<div className="SendEmail">
 			<div className="form-container">
