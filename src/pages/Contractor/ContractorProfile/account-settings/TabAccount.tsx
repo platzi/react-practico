@@ -57,7 +57,7 @@ const TabAccount = () => {
   // ** State
   const classes = useStyles();
   const { checkers, RegisterUserRedux, SendCredencialCheckerRedux, ListCheckersRedux, DeleteCheckerRedux, UpdateCheckersRedux } = useAuth();
-  const { contractor } = useAviato();
+  const { contractorSelected } = useAviato();
   const { UpdateContractorRedux } = useContractor();
   const { business } = useBusiness();
   const [contractorProfile, setContractorProfile] = useState<IContractorItem>();
@@ -94,11 +94,11 @@ const TabAccount = () => {
   };
 
   useEffect(() => {
-    if (contractor) {
-      setContractorProfile(contractor);
-      ListCheckersRedux(contractor.id);
+    if (contractorSelected) {
+      setContractorProfile(contractorSelected);
+      ListCheckersRedux(contractorSelected.id);
     }
-  }, [contractor]);
+  }, [contractorSelected]);
 
   return (
     <>

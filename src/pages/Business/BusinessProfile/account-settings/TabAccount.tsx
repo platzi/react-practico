@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const TabAccount = () => {
   // ** State
   const classes = useStyles();
-  const { business } = useAviato();
+  const { businessSelected } = useAviato();
   const { deleteCities, cities, ListCitiesRedux, DeleteCitiesRedux } =
     useCities();
   const { updateBusiness, UpdateBusinessRedux } = useBusiness();
@@ -91,7 +91,7 @@ const TabAccount = () => {
   const handleDeleteCities = async (id: number) => {
     await DeleteCitiesRedux(id);
     if (deleteCities) {
-      ListCitiesRedux(business.id);
+      ListCitiesRedux(businessSelected.id);
       toast.success("Estado Eliminado Correctamente.");
     }
   };
@@ -105,17 +105,17 @@ const TabAccount = () => {
       rfc: businessProfile?.rfc,
     };
     await UpdateBusinessRedux(businessProfile?.id, payload).then(async() => {
-      await ListCitiesRedux(business.id);
+      await ListCitiesRedux(businessSelected.id);
       toast.success("Empresa Actualizada Correctamente.");
     });
   };
 
   useEffect(() => {
-    if (business) {
-      ListCitiesRedux(business.id);
-      setBusinessProfile(business);
+    if (businessSelected) {
+      ListCitiesRedux(businessSelected.id);
+      setBusinessProfile(businessSelected);
     }
-  }, [business]);
+  }, [businessSelected]);
 
   return (
     <>

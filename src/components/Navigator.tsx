@@ -24,7 +24,7 @@ import "@styles/Navigator.scss";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 360,
+    maxWidth: 350,
     backgroundColor: "#FFFFFF",
   },
   nested: {
@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Navigator(props: any) {
   const history = useHistory();
   const classes = useStyles();
-  const params = useParams();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [selectedBusinessIndex, setSelectedBusinessIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);

@@ -10,7 +10,7 @@ import { useEmploye, INewEmploye } from "@redux/Employe";
 import { useCities, ICitiesItem } from "@redux/Cities";
 export default function Employes() {
   const { useState } = React;
-  const { contractor } = useAviato();
+  const { contractorSelected } = useAviato();
   const { user } = useAuth();
   const { jobs, ListJobsRedux } = useJobs();
   const { cities, ListCitiesRedux } = useCities();
@@ -68,17 +68,17 @@ export default function Employes() {
         2
       ),
       fonacot: parseFloat(replaceAll(newEmploye.fonacot, ",", "")).toFixed(2),
-      id_contractor: contractor.id,
+      id_contractor: contractorSelected.id,
       id_user: user.id,
     };
     await CreateEmployeRedux(payload).then((res: any) => {
       toast.success("Se ha creado el empleado correctamente");
     });
-    await ListEmployeRedux(contractor.id);
+    await ListEmployeRedux(contractorSelected.id);
   };
 
   useEffect(() => {
-    ListEmployeRedux(contractor.id);
+    ListEmployeRedux(contractorSelected.id);
   }, []);
 
   return (
@@ -127,7 +127,7 @@ export default function Employes() {
                 }).catch(() => {
                   toast.error("Se produjo un error intenta de nuevo");
                 });
-                await ListEmployeRedux(contractor.id);
+                await ListEmployeRedux(contractorSelected.id);
                 resolve(employe);
               }, 1000);
             }),
@@ -139,7 +139,7 @@ export default function Employes() {
                 }).catch(() => {
                   toast.error("Se produjo un error intenta de nuevo");
                 });;
-                await ListEmployeRedux(contractor.id);
+                await ListEmployeRedux(contractorSelected.id);
                 resolve(employe);
               }, 1000);
             }),

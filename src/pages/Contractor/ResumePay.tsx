@@ -14,7 +14,7 @@ import { useCities, ICitiesItem } from "@redux/Cities";
 
 export default function ResumePay() {
   const { useState } = React;
-  const { contractor } = useAviato();
+  const { contractorSelected } = useAviato();
   const { user } = useAuth();
   const { jobs, ListJobsRedux } = useJobs();
   const { cities, ListCitiesRedux } = useCities();
@@ -59,17 +59,17 @@ export default function ResumePay() {
     const payload = {
       name: newResumePay.name,
       period: newResumePay.period,
-      id_contractor: contractor.id,
+      id_contractor: contractorSelected.id,
       id_user: user.id,
     };
     await CreateResumePayRedux(payload).then((res: any) => {
       toast.success("Se ha creado el resumen correctamente");
     });
-    await ListResumePayRedux(contractor.id);
+    await ListResumePayRedux(contractorSelected.id);
   };
 
   useEffect(() => {
-    ListResumePayRedux(contractor.id);
+    ListResumePayRedux(contractorSelected.id);
   }, []);
 
   return (
@@ -123,7 +123,7 @@ export default function ResumePay() {
                   .catch(() => {
                     toast.error("Se produjo un error intenta de nuevo");
                   });
-                await ListResumePayRedux(contractor.id);
+                await ListResumePayRedux(contractorSelected.id);
                 resolve(resumePay);
               }, 1000);
             }),
@@ -139,7 +139,7 @@ export default function ResumePay() {
                   .catch(() => {
                     toast.error("Se produjo un error intenta de nuevo");
                   });
-                await ListResumePayRedux(contractor.id);
+                await ListResumePayRedux(contractorSelected.id);
                 resolve(resumePay);
               }, 1000);
             }),

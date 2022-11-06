@@ -38,7 +38,6 @@ function Header(props: any) {
       window.location.href = "/iniciar-sesión";
     });
     handleClose();
- 
   };
   
   return (

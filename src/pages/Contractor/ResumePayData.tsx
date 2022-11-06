@@ -7,19 +7,25 @@ import MaterialTable from "material-table";
 import { useAviato } from "@redux/Aviato";
 import { useAuth } from "@redux/Auth";
 import { useJobs, IJobsItem } from "@redux/Jobs";
-import {  IResumePay } from "@redux/ResumePay";
+import { IResumePay } from "@redux/ResumePay";
 import { useCities, ICitiesItem } from "@redux/Cities";
-import { useResumePayData, INewResumePayData, IResumePayDataItem } from "@redux/ResumePayData";
-import { useConstructionSite, IConstructionSiteItem } from "@redux/ConstructionSite";
+import {
+  useResumePayData,
+  INewResumePayData,
+  IResumePayDataItem,
+} from "@redux/ResumePayData";
+import {
+  useConstructionSite,
+  IConstructionSiteItem,
+} from "@redux/ConstructionSite";
 import { useResident, IResidentItem } from "@redux/Resident";
-
 
 interface IResumePayDataTable {
   data: IResumePay;
 }
 export default function ResumePayData({ data }: IResumePayDataTable) {
   const { useState } = React;
-  const { contractor } = useAviato();
+  const { contractorSelected } = useAviato();
   const { user } = useAuth();
   const { jobs, ListJobsRedux } = useJobs();
   const { cities, ListCitiesRedux } = useCities();
@@ -33,7 +39,7 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
   const { constructionSite, ListConstructionSiteRedux } = useConstructionSite();
   const { resident, ListResidentRedux } = useResident();
   const [columns, setColumns] = useState<any>([
-    { title: "#", field: "id"},
+    { title: "#", field: "id" },
     {
       title: "Estado",
       field: "id_city",
@@ -42,7 +48,7 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
         return acc;
       }, {}),
     },
-    { title: "Code", field: "code"},
+    { title: "Code", field: "code" },
     { title: "Nombre", field: "name" },
     {
       title: "Puesto",
@@ -105,10 +111,13 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
     {
       title: "Obra",
       field: "id_construction_site",
-      lookup: constructionSite.reduce((acc: IConstructionSiteItem, item: IConstructionSiteItem) => {
-        acc[item.id] = item.name;
-        return acc;
-      }, {}),
+      lookup: constructionSite.reduce(
+        (acc: IConstructionSiteItem, item: IConstructionSiteItem) => {
+          acc[item.id] = item.name;
+          return acc;
+        },
+        {}
+      ),
     },
     {
       title: "Resident",
@@ -128,11 +137,11 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
     },
   ]);
 
-  const handleChargerData= async () => {
-    await ListJobsRedux(contractor.id_business);
-    await ListCitiesRedux(contractor.id_business);
-    await ListConstructionSiteRedux(contractor.id_business);
-    await ListResidentRedux(contractor.id_business);
+  const handleChargerData = async () => {
+    await ListJobsRedux(contractorSelected.id_business);
+    await ListCitiesRedux(contractorSelected.id_business);
+    await ListConstructionSiteRedux(contractorSelected.id_business);
+    await ListResidentRedux(contractorSelected.id_business);
     await ListResumePayDataRedux(data.id);
   };
 
@@ -141,7 +150,7 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
   }, []);
 
   return (
-    <Paper >
+    <Paper>
       <MaterialTable
         title={`Resumen de Pago ${data.name}`}
         columns={columns}
@@ -170,12 +179,12 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
         }}
         editable={{
           onBulkUpdate: (changes) =>
-                  new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                      console.log(changes);
-                      resolve(resumePayData);
-                    }, 1000);
-                  }),
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                console.log(changes);
+                resolve(resumePayData);
+              }, 1000);
+            }),
         }}
       />
       <ToastContainer />

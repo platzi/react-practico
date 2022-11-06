@@ -12,6 +12,7 @@ import CreateAccount from "@pages/CreateAccount";
 import Employees from "@pages/Contractor/Employes";
 import Layout from "@containers/Layout";
 import Checker from "@containers/Checker/Layout";
+import DashboardContent from "@containers/Dashboard/DashboardContent";
 import Dashboard from "@containers/Dashboard/Dashboard";
 import CheckerList from "@pages/Checker/Checker";
 import NotFound from "@pages/NotFound";
@@ -86,7 +87,7 @@ const App = () => {
         </Route>
         <Route path={["/dashboard/:path?"]} exact>
           <Switch>
-            <Dashboard>
+            <DashboardContent>
               <Route
                 exact
                 path="/dashboard/perfil"
@@ -98,12 +99,12 @@ const App = () => {
                   );
                 }}
               />
-            </Dashboard>
+            </DashboardContent>
           </Switch>
         </Route>
         <Route path={["/dashboard/contratista/:path?"]} exact>
           <Switch>
-            <Dashboard>
+            <DashboardContent>
               <Route
                 exact
                 path="/dashboard/contratista/perfil"
@@ -137,12 +138,12 @@ const App = () => {
                   );
                 }}
               />
-            </Dashboard>
+            </DashboardContent>
           </Switch>
         </Route>
         <Route path={["/dashboard/empresa/:path?"]} exact>
           <Switch>
-            <Dashboard>
+            <DashboardContent>
               <Route
                 exact
                 path="/dashboard/empresa/perfil"
@@ -187,7 +188,7 @@ const App = () => {
                   );
                 }}
               />
-            </Dashboard>
+            </DashboardContent>
           </Switch>
         </Route>
       </Switch>

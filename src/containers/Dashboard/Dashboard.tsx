@@ -142,7 +142,7 @@ let theme = createTheme({
   spacing: 8,
 });
 
-const drawerWidth = 256;
+const drawerWidth = 200;
 
 export default function Dashboard({ children }: any) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -154,7 +154,7 @@ export default function Dashboard({ children }: any) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex", minHeight: "100vh" }}>
+      <Box sx={{ display: "flex", minHeight: "100vh" , maxWidth: "100%" }}>
         <CssBaseline />
         <Box
           component="nav"
@@ -175,7 +175,7 @@ export default function Dashboard({ children }: any) {
             variant="permanent"
           />
         </Box>
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column"}}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box
             component="main"

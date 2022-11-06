@@ -16,8 +16,8 @@ enum ContentActionsContants {
  * Interfaces
  */
 interface ContentBaseInterface {
-    business: IBusinessItem;
-    contractor: IContractorItem;
+    businessSelected: IBusinessItem;
+    contractorSelected: IContractorItem;
     loading: boolean;
 }
 
@@ -54,7 +54,7 @@ interface ReducerActionsInterface {
 const useAviato = (): IAviato => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(true);
-  const { contractor, business } = useSelector(
+  const { contractorSelected, businessSelected } = useSelector(
     (state: RootReducerInterface) => state.aviato
   );
 
@@ -62,8 +62,8 @@ const useAviato = (): IAviato => {
     try {
       setLoading(true);
       const payload: ContentBaseInterface = {
-        business,
-        contractor: contractor,
+        businessSelected,
+        contractorSelected: contractor,
         loading,
       };
       setLoading(false);
@@ -82,8 +82,8 @@ const useAviato = (): IAviato => {
     try {
       setLoading(true);
       const payload: ContentBaseInterface = {
-        business: business,
-        contractor,
+        businessSelected: business,
+        contractorSelected,
         loading,
       };
       setLoading(false);
@@ -99,8 +99,8 @@ const useAviato = (): IAviato => {
   };
 
 return {
-    business,
-    contractor,
+    businessSelected,
+    contractorSelected,
     loading,
     setContractorRedux,
     setBusinessRedux,
@@ -111,8 +111,8 @@ return {
  * Reducers
  */
 const initialState: ContentBaseInterface = {
-  business: {id: 0, name: "", reg_patronal: "", rfc: "", id_user: 0, created_at: ""},
-  contractor: {id: 0, name: "", rfc: "", id_business: 0, id_user: 0},
+  businessSelected: {id: 0, name: "", reg_patronal: "", rfc: "", id_user: 0, created_at: ""},
+  contractorSelected: {id: 0, name: "", rfc: "", id_business: 0, id_user: 0},
   loading: false,
 };
 
@@ -124,12 +124,12 @@ const aviatoReducer = (
     case ContentActionsContants.SUCCES_SET_CONTRACTOR:
       return {
         ...state,
-        contractor: action.payload.contractor,
+        contractorSelected: action.payload.contractorSelected,
       };
       case ContentActionsContants.SUCCESS_SET_BUSINESS:
         return {
           ...state,
-          business: action.payload.business,
+          businessSelected: action.payload.businessSelected,
         };
     default:
       return state;
