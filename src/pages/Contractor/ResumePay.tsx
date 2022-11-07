@@ -146,7 +146,6 @@ export default function ResumePay() {
         }}
       />
       ) : <ResumePayData data={resumePayItem}/>}
-      <ToastContainer />
     </Paper>
   );
 }

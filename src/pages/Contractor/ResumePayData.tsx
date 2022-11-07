@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
 import MaterialTable from "material-table";
@@ -32,9 +31,6 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
   const {
     resumePayData,
     ListResumePayDataRedux,
-    CreateResumePayDataRedux,
-    UpdateResumePayDataRedux,
-    DeleteResumePayDataRedux,
   } = useResumePayData();
   const { constructionSite, ListConstructionSiteRedux } = useConstructionSite();
   const { resident, ListResidentRedux } = useResident();
@@ -187,7 +183,6 @@ export default function ResumePayData({ data }: IResumePayDataTable) {
             }),
         }}
       />
-      <ToastContainer />
     </Paper>
   );
 }

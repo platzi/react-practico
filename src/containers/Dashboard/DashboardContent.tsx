@@ -30,11 +30,10 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AddIcon from "@mui/icons-material/Add";
 import logo from "@logos/green.png";
-
+import { ToastContainer, toast } from "react-toastify";
 import CreateContractor from "@components/modal/CreateContractor";
 import CreateBusiness from "@components/modal/CreateBusiness";
 import { useHistory, useParams } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { useBusiness, IBusinessItem } from "@redux/Business";
 import { useAuth } from "@redux/Auth";
 import { useContractor, IContractorItem } from "@redux/Contractor";
@@ -232,31 +231,28 @@ const mdTheme = createTheme({
 
 function DashboardContent({ children }: any) {
   const { user, LogoutRedux } = useAuth();
-  const { businessSelected, contractorSelected, setContractorRedux, setBusinessRedux } = useAviato();
+  const {
+    businessSelected,
+    contractorSelected,
+    setContractorRedux,
+    setBusinessRedux,
+  } = useAviato();
   const { business, ListBusinessRedux } = useBusiness();
   const { contractor, ListContractorRedux } = useContractor();
   const history = useHistory();
+  const [openContractor, setOpenContractor] = React.useState(false);
   const [openBusiness, setOpenBusiness] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [selectedBusinessIndex, setSelectedBusinessIndex] = React.useState(0);
   const [open, setOpen] = React.useState(true);
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
   const handleCloseUserMenu = (setting: string) => {
     setAnchorElUser(null);
@@ -274,6 +270,10 @@ function DashboardContent({ children }: any) {
     setOpen(true);
   };
 
+  const handleClickOpenContractor = () => {
+    setOpenContractor(true);
+  };
+
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
@@ -282,7 +282,7 @@ function DashboardContent({ children }: any) {
     setSelectedBusinessIndex(0);
     setContractorRedux(contractor.find((item: any) => item.id === index));
     setSelectedIndex(index);
-    history.push("/dashboard/contratista/perfil");
+    history.push("/dashboard/contratista");
   };
 
   const handleListItemBusinessClick = (
@@ -293,11 +293,15 @@ function DashboardContent({ children }: any) {
     setSelectedIndex(0);
     setBusinessRedux(business.find((item: any) => item.id === index));
     setSelectedBusinessIndex(index);
-    history.push("/dashboard/empresa/perfil");
+    history.push("/dashboard/empresa");
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCloseContractor = () => {
+    setOpenContractor(false);
   };
 
   const handleClickOpenBusiness = () => {
@@ -374,7 +378,10 @@ function DashboardContent({ children }: any) {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {contractorSelected?.name || businessSelected?.name || user?.name || 'Aviato'} 
+              {contractorSelected?.name ||
+                businessSelected?.name ||
+                user?.name ||
+                "Aviato"}
             </Typography>
             <IconButton color="inherit" style={{ marginRight: "10px" }}>
               <Badge badgeContent={4} color="secondary">
@@ -453,7 +460,12 @@ function DashboardContent({ children }: any) {
                 <ListItemText primary={item.name} />
               </ListItemButton>
             ))}
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => {
+                setSelectedBusinessIndex(0);
+                handleClickOpenContractor();
+              }}
+            >
               <ListItemIcon>
                 <AddIcon />
               </ListItemIcon>
@@ -479,7 +491,12 @@ function DashboardContent({ children }: any) {
                 <ListItemText primary={item.name} />
               </ListItemButton>
             ))}
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => {
+                setSelectedIndex(0);
+                handleClickOpenBusiness();
+              }}
+            >
               <ListItemIcon>
                 <AddIcon />
               </ListItemIcon>
@@ -511,6 +528,17 @@ function DashboardContent({ children }: any) {
           </Container>
         </Box>
       </Box>
+      <CreateBusiness
+        close={handleCloseBusiness}
+        open={openBusiness}
+        setOpen={setOpenBusiness}
+      />
+      <CreateContractor
+        close={handleCloseContractor}
+        open={openContractor}
+        setOpen={setOpenContractor}
+      />
+      <ToastContainer />
     </ThemeProvider>
   );
 }

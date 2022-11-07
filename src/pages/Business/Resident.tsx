@@ -8,7 +8,7 @@ import { useResident, INewResident } from "@redux/Resident";
 
 export default function Resident() {
   const { useState } = React;
-  const { business } = useAviato();
+  const { businessSelected } = useAviato();
   const { user } = useAuth();
   const { resident, ListResidentRedux, CreateResidentRedux, UpdateResidentRedux, DeleteResidentRedux } =
     useResident();
@@ -19,17 +19,17 @@ export default function Resident() {
   const handleCreateResident = async (newJob: INewResident) => {
     const payload = {
       name: newJob.name,
-      id_business: business.id,
+      id_business: businessSelected.id,
       id_user: user.id,
     };
     await CreateResidentRedux(payload).then((res: any) => {
       toast.success("Se ha creado el residente correctamente");
     });
-    await ListResidentRedux(business.id);
+    await ListResidentRedux(businessSelected.id);
   };
 
   useEffect(() => {
-    ListResidentRedux(business.id);
+    ListResidentRedux(businessSelected.id);
   }, []);
 
   return (
@@ -57,8 +57,12 @@ export default function Resident() {
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(async () => {
-                await UpdateResidentRedux(oldData?.id, newData);
-                await ListResidentRedux(business.id);
+                const payload = {
+                  name: newData.name,
+                  id_business: businessSelected.id,
+                };
+                await UpdateResidentRedux(oldData?.id, payload);
+                await ListResidentRedux(businessSelected.id);
                 resolve(resident);
               }, 1000);
             }),
@@ -66,13 +70,12 @@ export default function Resident() {
             new Promise((resolve, reject) => {
               setTimeout(async () => {
                 await DeleteResidentRedux(oldData.id);
-                await ListResidentRedux(business.id);
+                await ListResidentRedux(businessSelected.id);
                 resolve(resident);
               }, 1000);
             }),
         }}
       />
-      <ToastContainer />
     </Paper>
   );
 }

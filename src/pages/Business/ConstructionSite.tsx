@@ -13,7 +13,7 @@ import {
 
 export default function ConstructionSite() {
   const { useState } = React;
-  const { business } = useAviato();
+  const { businessSelected } = useAviato();
   const { user } = useAuth();
   const { resident, ListResidentRedux } = useResident();
   const {
@@ -47,17 +47,17 @@ export default function ConstructionSite() {
       name: newConstructionSite.name,
       location: newConstructionSite.location,
       id_resident: newConstructionSite.id_resident,
-      id_business: business.id,
+      id_business: businessSelected.id,
       id_user: user.id,
     };
     await CreateConstructionSiteRedux(payload).then((res: any) => {
       toast.success("Se ha creado el puesto correctamente");
     });
-    await ListConstructionSiteRedux(business.id);
+    await ListConstructionSiteRedux(businessSelected.id);
   };
 
   const handleUpdateConstructionSite = async () => {
-    await ListConstructionSiteRedux(business.id);
+    await ListConstructionSiteRedux(businessSelected.id);
   };
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export default function ConstructionSite() {
                   id_resident: newData.id_resident,
                 };
                 await UpdateConstructionSiteRedux(oldData?.id, payload);
-                await ListConstructionSiteRedux(business.id);
+                await ListConstructionSiteRedux(businessSelected.id);
                 resolve(constructionSite);
               }, 1000);
             }),
@@ -107,13 +107,12 @@ export default function ConstructionSite() {
             new Promise((resolve, reject) => {
               setTimeout(async () => {
                 await DeleteConstructionSiteRedux(oldData.id);
-                await ListConstructionSiteRedux(business.id);
+                await ListConstructionSiteRedux(businessSelected.id);
                 resolve(constructionSite);
               }, 1000);
             }),
         }}
       />
-      <ToastContainer />
     </Paper>
   );
 }

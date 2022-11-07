@@ -20,7 +20,7 @@ import { useJobs, INewJobs } from "@redux/Jobs";
 
 export default function Jobs() {
   const { useState } = React;
-  const { business } = useAviato();
+  const { businessSelected } = useAviato();
   const { user } = useAuth();
   const { jobs, ListJobsRedux, CreateJobsRedux, UpdateJobsRedux, DeleteJobsRedux } =
     useJobs();
@@ -37,17 +37,19 @@ export default function Jobs() {
     const payload = {
       name: newJob.name,
       salary: parseFloat(replaceAll(newJob.salary, ",", "")).toFixed(2),
-      id_business: business.id,
+      id_businessSelected: businessSelected.id,
       id_user: user.id,
     };
     await CreateJobsRedux(payload).then((res: any) => {
       toast.success("Se ha creado el puesto correctamente");
     });
-    await ListJobsRedux(business.id);
+    await ListJobsRedux(businessSelected.id);
   };
 
   useEffect(() => {
-    ListJobsRedux(business.id);
+    if(businessSelected !== null){
+      ListJobsRedux(businessSelected.id);
+    }
   }, []);
 
   return (
@@ -76,7 +78,7 @@ export default function Jobs() {
             new Promise((resolve, reject) => {
               setTimeout(async () => {
                 await UpdateJobsRedux(oldData?.id, newData);
-                await ListJobsRedux(business.id);
+                await ListJobsRedux(businessSelected.id);
                 resolve(jobs);
               }, 1000);
             }),
@@ -84,13 +86,12 @@ export default function Jobs() {
             new Promise((resolve, reject) => {
               setTimeout(async () => {
                 await DeleteJobsRedux(oldData.id);
-                await ListJobsRedux(business.id);
+                await ListJobsRedux(businessSelected.id);
                 resolve(jobs);
               }, 1000);
             }),
         }}
       />
-      <ToastContainer />
     </Paper>
   );
 }

@@ -99,15 +99,9 @@ const App = () => {
                   );
                 }}
               />
-            </DashboardContent>
-          </Switch>
-        </Route>
-        <Route path={["/dashboard/contratista/:path?"]} exact>
-          <Switch>
-            <DashboardContent>
               <Route
                 exact
-                path="/dashboard/contratista/perfil"
+                path="/dashboard/contratista"
                 render={() => {
                   return role === "admin" ? (
                     <ContractorProfile />
@@ -118,71 +112,10 @@ const App = () => {
               />
               <Route
                 exact
-                path="/dashboard/contratista/trabajadores"
-                render={() => {
-                  return role === "admin" ? (
-                    <Employees />
-                  ) : (
-                    <Redirect to="/iniciar-sesión" />
-                  );
-                }}
-              />
-              <Route
-                exact
-                path="/dashboard/contratista/resumen-de-pagos"
-                render={() => {
-                  return role === "admin" ? (
-                    <ResumePay />
-                  ) : (
-                    <Redirect to="/iniciar-sesión" />
-                  );
-                }}
-              />
-            </DashboardContent>
-          </Switch>
-        </Route>
-        <Route path={["/dashboard/empresa/:path?"]} exact>
-          <Switch>
-            <DashboardContent>
-              <Route
-                exact
-                path="/dashboard/empresa/perfil"
+                path="/dashboard/empresa"
                 render={() => {
                   return role === "admin" ? (
                     <BusinessProfile />
-                  ) : (
-                    <Redirect to="/iniciar-sesión" />
-                  );
-                }}
-              />
-              <Route
-                exact
-                path="/dashboard/empresa/construction-site"
-                render={() => {
-                  return role === "admin" ? (
-                    <ConstructionSite />
-                  ) : (
-                    <Redirect to="/iniciar-sesión" />
-                  );
-                }}
-              />
-              <Route
-                exact
-                path="/dashboard/empresa/puestos"
-                render={() => {
-                  return role === "admin" ? (
-                    <Jobs />
-                  ) : (
-                    <Redirect to="/iniciar-sesión" />
-                  );
-                }}
-              />
-              <Route
-                exact
-                path="/dashboard/empresa/residentes"
-                render={() => {
-                  return role === "admin" ? (
-                    <Resident />
                   ) : (
                     <Redirect to="/iniciar-sesión" />
                   );

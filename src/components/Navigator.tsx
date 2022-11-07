@@ -218,10 +218,7 @@ export default function Navigator(props: any) {
           <ListItemText
             primary="Agregar contratista"
             className="label"
-            onClick={() => {
-              setSelectedIndex(0);
-              handleClickOpenBusiness();
-            }}
+            handleClickOpenhandleClickOpen
           />
           <CreateBusiness
             close={handleCloseBusiness}

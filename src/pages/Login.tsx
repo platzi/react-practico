@@ -16,7 +16,7 @@ const Login = () => {
 
   const handleLoginAdmin = () => {
     setLoading(true);
-    setTimeout(() => {history.push("/dashboard/contratista/perfil");}, 1000);
+    setTimeout(() => {history.push("/dashboard/contratista");}, 1000);
   };
 
   const handleLoginChecker = () => {
