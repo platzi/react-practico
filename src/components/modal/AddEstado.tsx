@@ -98,7 +98,6 @@ export default function AddEstado({
           </div>
         </Box>
       </Modal>
-      <ToastContainer />
     </>
   );
 }

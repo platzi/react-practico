@@ -364,7 +364,6 @@ export default function CheckerList() {
             }}
           />
         )}
-        <ToastContainer />
       </Paper>
     </>
   );

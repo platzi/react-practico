@@ -112,7 +112,6 @@ export default function CreateContractor({
           </div>
         </Box>
       </Modal>
-      <ToastContainer />
     </>
   );
 }

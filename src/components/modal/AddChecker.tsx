@@ -88,7 +88,6 @@ export default function AddChecker({
           </div>
         </Box>
       </Modal>
-      <ToastContainer />
     </>
   );
 }
