@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -12,7 +12,6 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -33,12 +32,26 @@ import logo from "@logos/green.png";
 import { ToastContainer, toast } from "react-toastify";
 import CreateContractor from "@components/modal/CreateContractor";
 import CreateBusiness from "@components/modal/CreateBusiness";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useBusiness, IBusinessItem } from "@redux/Business";
 import { useAuth } from "@redux/Auth";
 import { useContractor, IContractorItem } from "@redux/Contractor";
 import { useAviato } from "@redux/Aviato";
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#00ab55",
+      contrastText: "#FFF",
+    },
+    secondary: {
+      main: "#ACD9B2",
+    },
+    error: {
+      main: "#f44336",
+    },
+  },
+});
 const settings = ["Profile", "Logout"];
 function Copyright(props: any) {
   return (
@@ -108,126 +121,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const mdTheme = createTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#00ab55",
-      contrastText: "#FFF",
-    },
-    secondary: {
-      main: "#ACD9B2",
-    },
-    error: {
-      main: "#f44336",
-    },
-    buttonPrimary: {
-      main: "#00ab55",
-      contrastText: "#FFF",
-    },
-    buttonSecondary: {
-      main: "#f44336",
-      contrastText: "#FFF",
-    },
-    inputPrimary: {
-      main: "#000000",
-      contrastText: "#000000",
-    },
-  },
-  overrides: {
-    MuiSwitch: {
-      root: {
-        width: 42,
-        height: 26,
-        padding: 0,
-        margin: 8,
-      },
-      switchBase: {
-        padding: 1,
-        "&$checked, &$colorPrimary$checked, &$colorSecondary$checked": {
-          transform: "translateX(16px)",
-          color: "#fff",
-          "& + $track": {
-            opacity: 1,
-            border: "none",
-          },
-        },
-      },
-      thumb: {
-        width: 24,
-        height: 24,
-      },
-      track: {
-        borderRadius: 13,
-        border: "1px solid #bdbdbd",
-        backgroundColor: "#fafafa",
-        opacity: 1,
-        transition:
-          "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-      },
-    },
-  },
-  props: {
-    MuiList: {
-      dense: true,
-    },
-    MuiMenuItem: {
-      dense: true,
-    },
-    MuiTable: {
-      size: "small",
-    },
-    MuiButtonBase: {
-      disableRipple: true,
-    },
-    MuiTooltip: {
-      arrow: true,
-    },
-    MuiButton: {
-      size: "small",
-    },
-    MuiButtonGroup: {
-      size: "small",
-    },
-    MuiCheckbox: {
-      size: "small",
-    },
-    MuiFab: {
-      size: "small",
-    },
-    MuiFormControl: {
-      margin: "dense",
-      size: "small",
-    },
-    MuiFormHelperText: {
-      margin: "dense",
-    },
-    MuiIconButton: {
-      size: "small",
-    },
-    MuiInputBase: {
-      margin: "dense",
-    },
-    MuiInputLabel: {
-      margin: "dense",
-    },
-    MuiRadio: {
-      size: "small",
-    },
-    MuiSwitch: {
-      size: "small",
-    },
-    MuiTextField: {
-      margin: "dense",
-      size: "small",
-    },
-  },
-  shape: {
-    borderRadius: 4,
-  },
-  direction: "rtl",
-  spacing: 8,
-});
 
 function DashboardContent({ children }: any) {
   const { user, LogoutRedux } = useAuth();
@@ -312,26 +205,10 @@ function DashboardContent({ children }: any) {
     setOpenBusiness(false);
   };
 
-  const redirect = (page: string) => {
-    history.push(page);
-  };
-
   const GetBusinessRedux = async () => {
     await ListContractorRedux(user.id);
     await ListBusinessRedux(user.id);
-    if (user.role === "admin") {
-      if (contractor.length > 0) {
-        if (contractor[0]?.id !== undefined || null) {
-          setSelectedIndex(contractor[0].id);
-          const list = document.getElementsByClassName(
-            "item-contractor"
-          )[0] as HTMLElement;
-          list.click();
-        }
-      } else {
-        history.push("/dashboard/perfil");
-      }
-    }
+    history.push("/dashboard/perfil");
   };
 
   useEffect(() => {
@@ -341,7 +218,7 @@ function DashboardContent({ children }: any) {
   }, []);
 
   return (
-    <ThemeProvider theme={mdTheme}>
+    <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -443,16 +320,7 @@ function DashboardContent({ children }: any) {
             {contractor.map((item: IContractorItem) => (
               <ListItemButton
                 key={item.id}
-                style={
-                  selectedIndex === item.id
-                    ? {
-                        backgroundColor: "#20c997",
-                        color: "#FFF",
-                      }
-                    : {}
-                }
                 onClick={(event) => handleListItemClick(event, item.id)}
-                className="item-contractor"
               >
                 <ListItemIcon>
                   <ArrowRightIcon />
@@ -478,11 +346,6 @@ function DashboardContent({ children }: any) {
             {business.map((item: IBusinessItem) => (
               <ListItemButton
                 key={item.id}
-                style={
-                  selectedBusinessIndex === item.id
-                    ? { backgroundColor: "#20c997", color: "#FFF" }
-                    : {}
-                }
                 onClick={(event) => handleListItemBusinessClick(event, item.id)}
               >
                 <ListItemIcon>

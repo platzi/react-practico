@@ -10,11 +10,10 @@ import { styled } from "@mui/material/styles";
 import MuiTab, { TabProps } from "@mui/material/Tab";
 // ** Icons Imports
 import AccountOutline from "mdi-material-ui/AccountOutline";
-
-// ** Demo Tabs Imports
-import TabAccount from "./account-settings/TabAccount";
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+// ** Demo Tabs Imports
+import TabAccount from "./account-settings/TabAccount";
 import Employes from "../Employes";
 import ResumePay from "../ResumePay";
 
@@ -66,19 +65,19 @@ const ContractorProfile = () => {
             value="Perfil"
             icon={<AccountOutline />}
             iconPosition="start"
-            label="Perfil"
+            label={<TabName>Perfil</TabName>}
           />
           <Tab
             value="Trabajadores"
             icon={<EngineeringIcon />}
             iconPosition="start"
-            label="Trabajadores"
+            label={<TabName>Trabajadores</TabName>}
           />
           <Tab
             value="Resumen-de-pagos"
             icon={<AssessmentIcon />}
             iconPosition="start"
-            label="Resumen De Pagos"
+            label={<TabName>Resumen de pagos</TabName>}
           />
         </TabList>
 

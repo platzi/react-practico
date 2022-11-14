@@ -10,8 +10,6 @@ import { IResumePay } from "@redux/ResumePay";
 import { useCities, ICitiesItem } from "@redux/Cities";
 import {
   useResumePayData,
-  INewResumePayData,
-  IResumePayDataItem,
 } from "@redux/ResumePayData";
 import {
   useConstructionSite,
@@ -25,7 +23,6 @@ interface IResumePayDataTable {
 export default function ResumePayData({ data }: IResumePayDataTable) {
   const { useState } = React;
   const { contractorSelected } = useAviato();
-  const { user } = useAuth();
   const { jobs, ListJobsRedux } = useJobs();
   const { cities, ListCitiesRedux } = useCities();
   const {

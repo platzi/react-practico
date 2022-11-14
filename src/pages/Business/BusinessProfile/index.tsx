@@ -3,7 +3,6 @@ import { SyntheticEvent, useState } from "react";
 
 // ** MUI Imports
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -12,7 +11,6 @@ import { styled } from "@mui/material/styles";
 import MuiTab, { TabProps } from "@mui/material/Tab";
 // ** Icons Imports
 import AccountOutline from "mdi-material-ui/AccountOutline";
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 // ** Demo Tabs Imports
@@ -69,27 +67,27 @@ const BusinessProfile = () => {
         >
           <Tab
           value="Perfil"
-            icon={<ContactPhoneIcon />}
+            icon={<AccountOutline />}
             iconPosition="start"
-            label="Perfil"
+            label={<TabName>Perfil</TabName>}
           />
           <Tab
           value="Puestos"
             icon={<EngineeringIcon />}
             iconPosition="start"
-            label="Puestos"
+            label={<TabName>Puestos</TabName>}
           />
           <Tab
           value={"Residentes"}
             icon={<EngineeringIcon />}
             iconPosition="start"
-            label="Residentes"
+            label={<TabName>Residentes</TabName>}
           />
           <Tab
           value={"Obras"}
             icon={<ApartmentIcon />}
             iconPosition="start"
-            label="Obras"
+            label={<TabName>Obras</TabName>}
           />
         </TabList>
 

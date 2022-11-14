@@ -6,7 +6,7 @@ import {
   SyntheticEvent,
   useEffect,
 } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 // ** MUI Imports
 import Form from "react-bootstrap/Form";
 import { makeStyles, Theme } from "@material-ui/core/styles";

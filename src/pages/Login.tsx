@@ -1,6 +1,5 @@
 import { useRef, SyntheticEvent, useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
 import logo from "@logos/green.png";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useAuth } from "@redux/Auth";
@@ -9,19 +8,21 @@ import "@styles/Login.scss";
 
 const Login = () => {
   const form = useRef(null);
-  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [redirected, setRedirected] = useState(false);
   const { LoginRedux, user } = useAuth();
 
   const handleLoginAdmin = () => {
-    setLoading(true);
-    setTimeout(() => {history.push("/dashboard/contratista");}, 1000);
+    toast.success("Credenciales correctas");
+    setTimeout(() => {setLoading(true);}, 1500);
+    setTimeout(() => {window.location.href = "/dashboard/perfil";}, 2000);
   };
 
   const handleLoginChecker = () => {
-    setLoading(true);
-    setTimeout(() => {window.location.href = "/checker/perfil";}, 1000);
+    toast.success("Credenciales correctas");
+    setTimeout(() => {setLoading(true);}, 1500);
+    setTimeout(() => {window.location.href = "/checker/perfil";}, 2000);
+    
   };
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -34,12 +35,12 @@ const Login = () => {
       setLoading(false);
       await LoginRedux(payload).then((res: any) => {
         setRedirected(true);
+      }).catch((err: any) => {
+        if(user === undefined && redirected === false){
+          setLoading(true);
+          toast.error("Usuario o contraseña incorrectos");
+        }
       });
-
-      if(user === undefined && redirected === false){
-        setLoading(true);
-        toast.error("Usuario o contraseña incorrectos");
-      }
     }
   };
 

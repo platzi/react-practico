@@ -1,23 +1,19 @@
 import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import MaterialTable from "material-table";
 import ResumePayData from "./ResumePayData";
 import { useAviato } from "@redux/Aviato";
 import { useAuth } from "@redux/Auth";
-import { useJobs, IJobsItem } from "@redux/Jobs";
 import { useResumePay, INewResumePay, IResumePay } from "@redux/ResumePay";
-import { useCities, ICitiesItem } from "@redux/Cities";
 
 
 export default function ResumePay() {
   const { useState } = React;
   const { contractorSelected } = useAviato();
   const { user } = useAuth();
-  const { jobs, ListJobsRedux } = useJobs();
-  const { cities, ListCitiesRedux } = useCities();
   const {
     resumePay,
     ListResumePayRedux,

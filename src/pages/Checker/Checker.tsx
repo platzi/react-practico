@@ -24,8 +24,11 @@ interface IResumePayDataTable {
   data: IResumePay;
 }
 const options = [
-  {id: 1, value: true, name: "Asistencia" },
   {id: 0, value: false, name: "Falta" },
+  {id: 1, value: true, name: "Asistencia" },
+  {id: 2, value: null, name: "Permiso" },
+  {id: 3, value: null, name: "Incapacidad" },
+  {id: 4, value: null, name: "Permiso" },
 ]
 export default function CheckerList() {
   const { useState } = React;

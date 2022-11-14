@@ -9,21 +9,14 @@ import PasswordRecovery from "@pages/PasswordRecovery";
 import SendEmail from "@pages/SendEmail";
 import NewPassword from "@pages/NewPassword";
 import CreateAccount from "@pages/CreateAccount";
-import Employees from "@pages/Contractor/Employes";
 import Layout from "@containers/Layout";
 import Checker from "@containers/Checker/Layout";
 import DashboardContent from "@containers/Dashboard/DashboardContent";
-import Dashboard from "@containers/Dashboard/Dashboard";
 import CheckerList from "@pages/Checker/Checker";
 import NotFound from "@pages/NotFound";
 import BusinessProfile from "@pages/Business/BusinessProfile";
-import ConstructionSite from "@pages/Business/ConstructionSite";
 import EngeinerProfile from "@pages/EngeinerProfile/Profile";
-import Jobs from "@pages/Business/Jobs";
-import Resident from "@pages/Business/Resident";
 import ContractorProfile from "@pages/Contractor/ContractorProfile";
-import ResumePay from "@pages/Contractor/ResumePay";
-import AuthLogin from "./AuthLogin";
 import { useAuth } from "@redux/Auth";
 
 const App = () => {
@@ -70,7 +63,7 @@ const App = () => {
         </Route>
         <Route path={["/checker/:path?"]} exact>
           <Switch>
-            <Checker>
+            <DashboardContent>
               <Route
                 exact
                 path="/checker/perfil"
@@ -82,7 +75,7 @@ const App = () => {
                   );
                 }}
               />
-            </Checker>
+            </DashboardContent>
           </Switch>
         </Route>
         <Route path={["/dashboard/:path?"]} exact>

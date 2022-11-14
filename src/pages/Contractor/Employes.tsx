@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { replaceAll } from "@helpers/Convert";
 import MaterialTable from "material-table";
 import { useAviato } from "@redux/Aviato";
@@ -12,8 +12,8 @@ export default function Employes() {
   const { useState } = React;
   const { contractorSelected } = useAviato();
   const { user } = useAuth();
-  const { jobs, ListJobsRedux } = useJobs();
-  const { cities, ListCitiesRedux } = useCities();
+  const { jobs } = useJobs();
+  const { cities } = useCities();
   const {
     employe,
     ListEmployeRedux,
