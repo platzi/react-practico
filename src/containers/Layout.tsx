@@ -109,6 +109,7 @@ let themeDefault = createTheme({
   spacing: 8,
 });
 const Layout = ({ children }: any) => {
+  console.log("aqui ando");
   return (
     <ThemeProvider theme={themeDefault}>
       <div className="Layout">{children}</div>

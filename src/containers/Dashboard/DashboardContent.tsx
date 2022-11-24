@@ -29,7 +29,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AddIcon from "@mui/icons-material/Add";
 import logo from "@logos/green.png";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import CreateContractor from "@components/modal/CreateContractor";
 import CreateBusiness from "@components/modal/CreateBusiness";
 import { useHistory } from "react-router-dom";
@@ -121,7 +121,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-
 function DashboardContent({ children }: any) {
   const { user, LogoutRedux } = useAuth();
   const {
@@ -137,7 +136,7 @@ function DashboardContent({ children }: any) {
   const [openBusiness, setOpenBusiness] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [selectedBusinessIndex, setSelectedBusinessIndex] = React.useState(0);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(user.role === "admin" ? true : false);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -157,10 +156,6 @@ function DashboardContent({ children }: any) {
     await LogoutRedux().then(() => {
       window.location.href = "/iniciar-sesión";
     });
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
   };
 
   const handleClickOpenContractor = () => {
@@ -189,10 +184,6 @@ function DashboardContent({ children }: any) {
     history.push("/dashboard/empresa");
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleCloseContractor = () => {
     setOpenContractor(false);
   };
@@ -212,7 +203,7 @@ function DashboardContent({ children }: any) {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user?.role === "admin") {
       GetBusinessRedux();
     }
   }, []);
@@ -227,18 +218,21 @@ function DashboardContent({ children }: any) {
               pr: "24px", // keep right padding when drawer closed
             }}
           >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
+            {user?.role === "admin" ? (
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                sx={{
+                  marginRight: "36px",
+                  ...(open && { display: "none" }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : null}
+
             <Typography
               component="h1"
               variant="h6"
@@ -255,10 +249,11 @@ function DashboardContent({ children }: any) {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {contractorSelected?.name ||
-                businessSelected?.name ||
-                user?.name ||
-                "Aviato"}
+              {user?.role === "admin"
+                ? contractorSelected?.name ||
+                  businessSelected?.name ||
+                  user?.name
+                : "Aviato"}
             </Typography>
             <IconButton color="inherit" style={{ marginRight: "10px" }}>
               <Badge badgeContent={4} color="secondary">
@@ -299,74 +294,79 @@ function DashboardContent({ children }: any) {
             </Menu>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <ListSubheader component="div">
-              <EngineeringIcon style={{ marginRight: "10px" }} /> Contratistas
-            </ListSubheader>
-            {contractor.map((item: IContractorItem) => (
-              <ListItemButton
-                key={item.id}
-                onClick={(event) => handleListItemClick(event, item.id)}
-              >
-                <ListItemIcon>
-                  <ArrowRightIcon />
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            ))}
-            <ListItemButton
-              onClick={() => {
-                setSelectedBusinessIndex(0);
-                handleClickOpenContractor();
+        {user.role === "admin" ? (
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                px: [1],
               }}
             >
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Agregar" />
-            </ListItemButton>
-            <Divider sx={{ my: 1 }} />
-            <ListSubheader component="div">
-              <BusinessIcon style={{ marginRight: "10px" }} /> Empresas
-            </ListSubheader>
-            {business.map((item: IBusinessItem) => (
+              <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List component="nav">
+              <ListSubheader component="div">
+                <EngineeringIcon style={{ marginRight: "10px" }} /> Contratistas
+              </ListSubheader>
+              {contractor.map((item: IContractorItem) => (
+                <ListItemButton
+                  key={item.id}
+                  onClick={(event) => handleListItemClick(event, item.id)}
+                >
+                  <ListItemIcon>
+                    <ArrowRightIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              ))}
               <ListItemButton
-                key={item.id}
-                onClick={(event) => handleListItemBusinessClick(event, item.id)}
+                onClick={() => {
+                  setSelectedBusinessIndex(0);
+                  handleClickOpenContractor();
+                }}
               >
                 <ListItemIcon>
-                  <ArrowRightIcon />
+                  <AddIcon />
                 </ListItemIcon>
-                <ListItemText primary={item.name} />
+                <ListItemText primary="Agregar" />
               </ListItemButton>
-            ))}
-            <ListItemButton
-              onClick={() => {
-                setSelectedIndex(0);
-                handleClickOpenBusiness();
-              }}
-            >
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Agregar" />
-            </ListItemButton>
-          </List>
-        </Drawer>
+              <Divider sx={{ my: 1 }} />
+              <ListSubheader component="div">
+                <BusinessIcon style={{ marginRight: "10px" }} /> Empresas
+              </ListSubheader>
+              {business.map((item: IBusinessItem) => (
+                <ListItemButton
+                  key={item.id}
+                  onClick={(event) =>
+                    handleListItemBusinessClick(event, item.id)
+                  }
+                >
+                  <ListItemIcon>
+                    <ArrowRightIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              ))}
+              <ListItemButton
+                onClick={() => {
+                  setSelectedIndex(0);
+                  handleClickOpenBusiness();
+                }}
+              >
+                <ListItemIcon>
+                  <AddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Agregar" />
+              </ListItemButton>
+            </List>
+          </Drawer>
+        ) : null}
+
         <Box
           component="main"
           sx={{
@@ -380,7 +380,7 @@ function DashboardContent({ children }: any) {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Contenido */}
               <Grid item xs={12}>

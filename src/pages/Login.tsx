@@ -15,13 +15,15 @@ const Login = () => {
   const handleLoginAdmin = () => {
     toast.success("Credenciales correctas");
     setTimeout(() => {setLoading(true);}, 1500);
-    setTimeout(() => {window.location.href = "/dashboard/perfil";}, 2000);
+    setTimeout(() => {window.location.href = "/dashboard/perfil";}, 1300);
   };
 
   const handleLoginChecker = () => {
     toast.success("Credenciales correctas");
     setTimeout(() => {setLoading(true);}, 1500);
-    setTimeout(() => {window.location.href = "/checker/perfil";}, 2000);
+    if(user?.role === "checker") {
+      setTimeout(() => {window.location.href = "/dashboard/checker";}, 1300);
+    }
     
   };
   const handleSubmit = async (event: SyntheticEvent) => {

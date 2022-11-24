@@ -10,10 +10,8 @@ import SendEmail from "@pages/SendEmail";
 import NewPassword from "@pages/NewPassword";
 import CreateAccount from "@pages/CreateAccount";
 import Layout from "@containers/Layout";
-import Checker from "@containers/Checker/Layout";
 import DashboardContent from "@containers/Dashboard/DashboardContent";
 import CheckerList from "@pages/Checker/Checker";
-import NotFound from "@pages/NotFound";
 import BusinessProfile from "@pages/Business/BusinessProfile";
 import EngeinerProfile from "@pages/EngeinerProfile/Profile";
 import ContractorProfile from "@pages/Contractor/ContractorProfile";
@@ -31,13 +29,9 @@ const App = () => {
               <Route
                 exact
                 path="/"
-                render={() => <Redirect to="/iniciar-sesión" /> }
+                render={() => <Redirect to="/iniciar-sesión" />}
               />
-              <Route
-                exact 
-                path="/iniciar-sesión"
-                render={() => <Login />}
-              />
+              <Route exact path="/iniciar-sesión" render={() => <Login />} />
               <Route
                 exact
                 path="/recuperar-contrasena"
@@ -61,26 +55,20 @@ const App = () => {
             </Layout>
           </Switch>
         </Route>
-        <Route path={["/checker/:path?"]} exact>
+        <Route path={["/dashboard/:path?"]} exact>
           <Switch>
             <DashboardContent>
-              <Route
+            <Route
                 exact
-                path="/checker/perfil"
+                path="/dashboard/checker"
                 render={() => {
                   return role === "checker" ? (
                     <CheckerList />
                   ) : (
-                    <Redirect to="/iniciar-sesión" />
+                    <Redirect to="/dashboard/perfil" />
                   );
                 }}
               />
-            </DashboardContent>
-          </Switch>
-        </Route>
-        <Route path={["/dashboard/:path?"]} exact>
-          <Switch>
-            <DashboardContent>
               <Route
                 exact
                 path="/dashboard/perfil"
@@ -88,7 +76,7 @@ const App = () => {
                   return role === "admin" ? (
                     <EngeinerProfile />
                   ) : (
-                   <Redirect to="/checker/perfil" />
+                    <Redirect to="/dashboard/checker" />
                   );
                 }}
               />
