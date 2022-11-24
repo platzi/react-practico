@@ -1,0 +1,18 @@
+@import "vars";
+#alerts {
+  color: var(--hospital-green);
+}
+#profile {
+  color: var(--hospital-green);
+}
+
+#simple-menu div:nth-child(3) {
+  opacity: 1;
+  width: 200px;
+  transform: none;
+  transition: opacity 233ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    transform 155ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  top: 45px;
+  left: 1330px;
+  transform-origin: 67px 8px;
+}

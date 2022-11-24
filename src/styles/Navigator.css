@@ -1,0 +1,35 @@
+#nested-list-subheader {
+  color: #000;
+}
+
+.navigation {
+  color: #F7F7F7;
+}
+
+div .item-selected {
+  background-color: rgba(0, 171, 85, 0.08);
+  color: rgb(0, 171, 85);
+}
+
+div .item-selected > div > .label {
+  color: rgb(0, 171, 85);
+}
+
+div .item-selected > div > span {
+  color: rgb(0, 171, 85);
+}
+
+.label {
+  color: rgb(99, 115, 129);
+}
+
+.logo-item {
+  display: block;
+  margin: 0% 0 -10% 8%;
+  cursor: pointer;
+}
+
+.contractorItemActive {
+  background-color: #20c997;
+  color: #fff;
+}/*# sourceMappingURL=Navigator.css.map */
